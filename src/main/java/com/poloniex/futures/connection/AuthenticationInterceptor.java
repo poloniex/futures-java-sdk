@@ -73,7 +73,6 @@ public class AuthenticationInterceptor implements Interceptor {
             newRequestBuilder.addHeader(APIConstants.API_HEADER_SIGN, signature);
             newRequestBuilder.addHeader(APIConstants.API_HEADER_PASSPHRASE, passPhrase);
             newRequestBuilder.addHeader(APIConstants.API_HEADER_TIMESTAMP, timestamp);
-//          newRequestBuilder.addHeader("X-VERSION", "csw"); // just for dev test
             // Build new request after adding the necessary authentication information
             Request newRequest = newRequestBuilder.build();
             return chain.proceed(newRequest);

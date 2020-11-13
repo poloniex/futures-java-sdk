@@ -12,8 +12,6 @@ public class SDKException extends RuntimeException {
 
     public static final String KEY_MISSING = "KeyMissingError";
 
-    public static final String SYS_ERROR = "SystemError";
-
     private String errCode;
 
     public SDKException(String errCode, String errMsg) {
