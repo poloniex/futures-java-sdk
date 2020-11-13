@@ -5,7 +5,7 @@ import com.poloniex.futures.rest.MarketClient;
 import com.poloniex.futures.rest.req.*;
 import com.poloniex.futures.rest.resp.*;
 import com.poloniex.futures.connection.Options;
-import com.poloniex.futures.connection.PoloiRestConnection;
+import com.poloniex.futures.connection.PoloRestConnection;
 import com.poloniex.futures.utils.InputChecker;
 import com.poloniex.futures.utils.JSONUtils;
 import com.poloniex.futures.utils.UrlParamsBuilder;
@@ -20,11 +20,11 @@ public class MarketClientImpl implements MarketClient {
     private static final Logger log = LoggerFactory.getLogger(MarketClientImpl.class);
 
     private Options options;
-    private PoloiRestConnection restConnection;
+    private PoloRestConnection restConnection;
 
     public MarketClientImpl(Options options) {
         this.options = options;
-        restConnection = new PoloiRestConnection(options);
+        restConnection = new PoloRestConnection(options);
     }
 
     public static final String REST_OPEN_CONTRACT_PATH = "/api/v1/contracts/active";

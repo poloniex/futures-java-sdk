@@ -5,7 +5,7 @@ import com.poloniex.futures.rest.TradeClient;
 import com.poloniex.futures.rest.req.*;
 import com.poloniex.futures.rest.resp.*;
 import com.poloniex.futures.connection.Options;
-import com.poloniex.futures.connection.PoloiRestConnection;
+import com.poloniex.futures.connection.PoloRestConnection;
 import com.poloniex.futures.model.trade.OrderDetail;
 import com.poloniex.futures.model.trade.TradeDetail;
 import com.poloniex.futures.utils.InputChecker;
@@ -23,11 +23,11 @@ public class TradeClientImpl implements TradeClient {
 
     private Options options;
 
-    private PoloiRestConnection restConnection;
+    private PoloRestConnection restConnection;
 
     public TradeClientImpl(Options options) {
         this.options = options;
-        this.restConnection = new PoloiRestConnection(options);
+        this.restConnection = new PoloRestConnection(options);
     }
 
     public static final String REST_CREATE_ORDER_PATH = "/api/v1/orders";

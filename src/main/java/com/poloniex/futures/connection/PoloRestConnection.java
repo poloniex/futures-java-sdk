@@ -7,12 +7,16 @@ import com.poloniex.futures.utils.UrlParamsBuilder;
 import lombok.Getter;
 import okhttp3.Request;
 
-public class PoloiRestConnection {
+public class PoloRestConnection {
+
+    public final static String HEADER_CONTENT_TYPE = "Content-Type";
+    public final static String HEADER_CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
+    public final static String HEADER_CONTENT_TYPE_JSON = "application/json";
 
     @Getter
     private Options options;
 
-    public PoloiRestConnection(Options options) {
+    public PoloRestConnection(Options options) {
         this.options = options;
         ConnectionFactory.init(options.getApiKey(), options.getSecretKey(), options.getPassphrase());
     }
@@ -22,7 +26,7 @@ public class PoloiRestConnection {
         String url = options.getRestHost() + path + paramsBuilder.buildUrl();
         Request executeRequest = new Request.Builder()
                 .url(url)
-                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_FORM)
                 .build();
         String resp = ConnectionFactory.execute(executeRequest);
         return checkAndGetResponse(resp);
@@ -33,7 +37,7 @@ public class PoloiRestConnection {
         String url = options.getRestHost() + path;
         Request executeRequest = new Request.Builder()
                 .url(url)
-                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_FORM)
                 .post(paramsBuilder.buildPostBody())
                 .build();
         String resp = ConnectionFactory.execute(executeRequest);
@@ -45,7 +49,7 @@ public class PoloiRestConnection {
         String url = options.getRestHost() + path + paramsBuilder.buildUrl();
         Request executeRequest = new Request.Builder()
                 .url(url)
-                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_FORM)
                 .build();
         String resp = ConnectionFactory.executeWithSignature(executeRequest);
         return checkAndGetResponse(resp);
@@ -56,7 +60,7 @@ public class PoloiRestConnection {
         String requestUrl = options.getRestHost() + path;
         Request executeRequest = new Request.Builder()
                 .url(requestUrl)
-                .addHeader("Content-Type", "application/json")
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_JSON)
                 .post(paramsBuilder.buildPostBody())
                 .build();
         String resp = ConnectionFactory.executeWithSignature(executeRequest);
@@ -68,7 +72,7 @@ public class PoloiRestConnection {
         String requestUrl = options.getRestHost() + path;
         Request executeRequest = new Request.Builder()
                 .url(requestUrl)
-                .addHeader("Content-Type", "application/json")
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_JSON)
                 .delete(paramsBuilder.buildPostBody())
                 .build();
         String resp = ConnectionFactory.executeWithSignature(executeRequest);

@@ -2,7 +2,7 @@ package com.poloniex.futures.websocket.token;
 
 import com.alibaba.fastjson.JSONObject;
 import com.poloniex.futures.connection.Options;
-import com.poloniex.futures.connection.PoloiRestConnection;
+import com.poloniex.futures.connection.PoloRestConnection;
 import com.poloniex.futures.rest.impl.AccountClientImpl;
 import com.poloniex.futures.utils.JSONUtils;
 import com.poloniex.futures.utils.UrlParamsBuilder;
@@ -18,11 +18,11 @@ public class WebSocketTokenClientImpl implements WebSocketTokenClient {
 
     private Options options;
     @Getter
-    private PoloiRestConnection restConnection;
+    private PoloRestConnection restConnection;
 
     public WebSocketTokenClientImpl(Options options) {
         this.options = options;
-        restConnection = new PoloiRestConnection(options);
+        restConnection = new PoloRestConnection(options);
     }
 
     public static final String REST_PUBLIC_TOKEN_PATH = "/api/v1/bullet-public";

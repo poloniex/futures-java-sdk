@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.poloniex.futures.rest.CommonClient;
 import com.poloniex.futures.rest.resp.ServiceStatusResponse;
 import com.poloniex.futures.connection.Options;
-import com.poloniex.futures.connection.PoloiRestConnection;
+import com.poloniex.futures.connection.PoloRestConnection;
 import com.poloniex.futures.utils.JSONUtils;
 import com.poloniex.futures.utils.UrlParamsBuilder;
 import org.slf4j.Logger;
@@ -15,11 +15,11 @@ public class CommonClientImpl implements CommonClient {
     private static final Logger log = LoggerFactory.getLogger(MarketClientImpl.class);
 
     private Options options;
-    private PoloiRestConnection restConnection;
+    private PoloRestConnection restConnection;
 
     public CommonClientImpl(Options options) {
         this.options = options;
-        restConnection = new PoloiRestConnection(options);
+        restConnection = new PoloRestConnection(options);
     }
 
     public static final String REST_TIME_PATH = "/api/v1/timestamp";

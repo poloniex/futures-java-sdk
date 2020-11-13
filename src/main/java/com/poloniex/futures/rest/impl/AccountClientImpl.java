@@ -7,7 +7,7 @@ import com.poloniex.futures.rest.req.TransactionHistoryRequest;
 import com.poloniex.futures.rest.resp.AccountOverviewResponse;
 import com.poloniex.futures.rest.resp.TransactionHistoryResponse;
 import com.poloniex.futures.connection.Options;
-import com.poloniex.futures.connection.PoloiRestConnection;
+import com.poloniex.futures.connection.PoloRestConnection;
 import com.poloniex.futures.utils.JSONUtils;
 import com.poloniex.futures.utils.UrlParamsBuilder;
 import org.apache.commons.lang3.StringUtils;
@@ -19,11 +19,11 @@ public class AccountClientImpl implements AccountClient {
     private static final Logger log = LoggerFactory.getLogger(AccountClientImpl.class);
 
     private Options options;
-    private PoloiRestConnection restConnection;
+    private PoloRestConnection restConnection;
 
     public AccountClientImpl(Options options) {
         this.options = options;
-        restConnection = new PoloiRestConnection(options);
+        restConnection = new PoloRestConnection(options);
     }
 
     public static final String REST_ACCOUNT_OVERVIEW_PATH = "/api/v1/account-overview";

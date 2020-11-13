@@ -24,5 +24,5 @@ public class OrderChangeEvent {
     private String orderSize;
     private String liquidity;
     private Long ts;
-    
+
 }
