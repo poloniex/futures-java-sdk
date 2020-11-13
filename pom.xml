@@ -6,7 +6,7 @@
 
     <groupId>com.poloniex.futures</groupId>
     <artifactId>polo-futures-java-sdk</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>1.0.0</version>
 
     <name>polo-futures-java-sdk</name>
@@ -36,11 +36,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>19.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -89,10 +84,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
             </plugin>
             <plugin>
