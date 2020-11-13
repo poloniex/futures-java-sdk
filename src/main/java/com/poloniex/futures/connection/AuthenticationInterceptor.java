@@ -130,7 +130,6 @@ public class AuthenticationInterceptor implements Interceptor {
             throw new RuntimeException("I/O error fetching request body", e);
         }
 
-        //编码设为UTF-8
         Charset charset = Charset.forName("UTF-8");
         MediaType contentType = request.body().contentType();
         if (contentType != null) {
