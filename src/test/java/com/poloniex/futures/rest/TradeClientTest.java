@@ -17,6 +17,71 @@ import java.util.List;
 public class TradeClientTest {
 
     @Test
+    public void test_queryUserMaxOrderConfig(){
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY)
+                .secretKey(Constants.SECRET_KEY)
+                .passphrase(Constants.PASS_PHRASE)
+                .restHost(Constants.REST_HOST)
+                .build();
+        TradeClient client = new TradeClientImpl(options);
+        QueryMarginTypeRequest request = QueryMarginTypeRequest.builder()
+                .symbol("BTCUSDTPERP")
+                .build();
+        UserOrderMaxActiveConfigResponse result = client.queryUserMaxOrderActiveConfig();
+        System.out.println(JSON.toJSONString(result));
+    }
+
+    @Test
+    public void test_queryUserFeeRate(){
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY)
+                .secretKey(Constants.SECRET_KEY)
+                .passphrase(Constants.PASS_PHRASE)
+                .restHost(Constants.REST_HOST)
+                .build();
+        TradeClient client = new TradeClientImpl(options);
+//        QueryMarginTypeRequest request = QueryMarginTypeRequest.builder()
+//                .symbol("BTCUSDTPERP")
+//                .build();
+        UserRankFeeResponse result = client.queryUserRankFeeRate();
+        System.out.println(JSON.toJSONString(result));
+    }
+
+
+    @Test
+    public void test_queryMarginType(){
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY)
+                .secretKey(Constants.SECRET_KEY)
+                .passphrase(Constants.PASS_PHRASE)
+                .restHost(Constants.REST_HOST)
+                .build();
+        TradeClient client = new TradeClientImpl(options);
+        QueryMarginTypeRequest request = QueryMarginTypeRequest.builder()
+                .symbol("MTLUSDTPERP")
+                .build();
+        Integer result = client.queryMarginType(request);
+        System.out.println(JSON.toJSONString(result));
+    }
+
+    @Test
+    public void test_changeMarginType(){
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY)
+                .secretKey(Constants.SECRET_KEY)
+                .passphrase(Constants.PASS_PHRASE)
+                .restHost(Constants.REST_HOST)
+                .build();
+        TradeClient client = new TradeClientImpl(options);
+        ChangeMarginTypeRequest request = ChangeMarginTypeRequest.builder()
+                .symbol("BTCUSDTPERP")
+                .marginType(0)
+                .build();
+        client.changeMarginType(request);
+    }
+
+    @Test
     public void test_placeOrder() {
         Options options = PoloOptions.builder()
                 .apiKey(Constants.API_KEY)
@@ -26,13 +91,14 @@ public class TradeClientTest {
                 .build();
         TradeClient client = new TradeClientImpl(options);
         PlaceOrderRequest request = PlaceOrderRequest.builder()
-                .symbol("BTCUSDTPERP")
+                .symbol("COMBOUSDTPERP")
                 .clientOid(IdGenerator.getNextId().toString())
                 .side("buy")
                 .type("limit")
-                .price("12")
+                .price("3.13")
+                //.stop("down")
                 .size(1)
-                .leverage("10")
+                .leverage("13")
                 .build();
         PlaceOrderResponse result = client.placeOrder(request);
         System.out.println(JSON.toJSONString(result));

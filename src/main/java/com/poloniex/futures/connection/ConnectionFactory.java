@@ -86,7 +86,7 @@ public class ConnectionFactory {
         Response response = null;
         String str = null;
         try {
-            log.debug("[Request URL]{}", request.url());
+            log.info("[Request URL]{}", request.url());
             Request temp = request.newBuilder().addHeader(APIConstants.API_HEADER_NEED_AUTH, "true").build();
             response = client.newCall(temp).execute();
             if (response.code() != 200) {

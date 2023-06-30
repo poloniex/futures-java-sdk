@@ -44,6 +44,51 @@ public class TradeClientImpl implements TradeClient {
     public static final String REST_OPEN_ORDER_STATISTICS_PATH = "/api/v1/openOrderStatistics";
 
 
+    public static final String REST_MAX_ACTIVE_ORDER = "/api/v1/maxActiveOrders";
+
+    public static final String REST_MAX_RISK_LIMIT = "/api/v1/maxRiskLimit";
+
+
+    public static final String REST_QUERY_MARGINTYPE_PATH = "/api/v1/marginType/query";
+
+    public static final String REST_CHANGE_MARGINTYPE_PATH = "/api/v1/marginType/change";
+
+    public static final String REST_QUERY_USER_FEE_RATE_PATH = " /api/v1/userFeeRate";
+
+    public static final  String REST_QUERY_USER_MAX_ORDER_CONFIG_PATH = "/api/v1/maxActiveOrders";
+
+    @Override
+    public UserRankFeeResponse queryUserRankFeeRate() {
+        JSONObject result = restConnection.executeGetWithSignature(REST_QUERY_USER_FEE_RATE_PATH, UrlParamsBuilder.build());
+        return JSONUtils.toBean(result.getString("data"), UserRankFeeResponse.class);
+    }
+
+    @Override
+    public UserOrderMaxActiveConfigResponse queryUserMaxOrderActiveConfig() {
+        JSONObject result = restConnection.executeGetWithSignature(REST_QUERY_USER_MAX_ORDER_CONFIG_PATH, UrlParamsBuilder.build());
+        return JSONUtils.toBean(result.getString("data"), UserOrderMaxActiveConfigResponse.class);
+    }
+
+    @Override
+    public Integer queryMarginType(QueryMarginTypeRequest request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        if (StringUtils.isNotBlank(request.getSymbol())) {
+            builder.putToUrl("symbol", request.getSymbol());
+        }
+        JSONObject result = restConnection.executeGetWithSignature(REST_QUERY_MARGINTYPE_PATH, builder);
+        return JSONUtils.toBean(result.getString("data"), Integer.class);
+    }
+
+    @Override
+    public void changeMarginType(ChangeMarginTypeRequest request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        builder.putToPost("symbol", request.getSymbol())
+                .putToPost("marginType", request.getMarginType());
+        JSONObject result = restConnection.executePostWithSignature(REST_CHANGE_MARGINTYPE_PATH, builder);
+    }
+
+
+
     @Override
     public PlaceOrderResponse placeOrder(PlaceOrderRequest request) {
         InputChecker.checker().shouldNotNull(request.getClientOid(), "clientOid");
@@ -96,6 +141,7 @@ public class TradeClientImpl implements TradeClient {
             builder.putToPost("remark", request.getRemark());
         }
         JSONObject result = restConnection.executePostWithSignature(REST_CREATE_ORDER_PATH, builder);
+        System.out.println("result = "+ result);
         return JSONUtils.toBean(result.getString("data"), PlaceOrderResponse.class);
     }
 
@@ -221,5 +267,21 @@ public class TradeClientImpl implements TradeClient {
         JSONObject result = restConnection.executeGetWithSignature(REST_OPEN_ORDER_STATISTICS_PATH,
                 UrlParamsBuilder.build().putToUrl("symbol", request.getSymbol()));
         return JSONUtils.toBean(result.getString("data"), OrderStatisticsResponse.class);
+    }
+
+    @Override
+    public TradeOrderMaxActiveResponse queryMaxActiveOrders() {
+        JSONObject result = restConnection.executeGetWithSignature(REST_MAX_ACTIVE_ORDER, UrlParamsBuilder.build());
+        return JSONUtils.toBean(result.getString("data"), TradeOrderMaxActiveResponse.class);
+    }
+
+    @Override
+    public List<TradeOrderMaxLimitResponse> queryMaxRiskLimit(OrderStatisticsRequest request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        if (StringUtils.isNotBlank(request.getSymbol())) {
+            builder.putToUrl("symbol", request.getSymbol());
+        }
+        JSONObject result = restConnection.executeGetWithSignature(REST_MAX_RISK_LIMIT, builder);
+        return JSONUtils.toList(result.getString("data"), TradeOrderMaxLimitResponse.class);
     }
 }

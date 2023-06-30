@@ -63,7 +63,9 @@ public class PoloRestConnection {
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_JSON)
                 .post(paramsBuilder.buildPostBody())
                 .build();
+        System.out.println("executeRequest = "+ executeRequest+ paramsBuilder.buildUrl());
         String resp = ConnectionFactory.executeWithSignature(executeRequest);
+        System.out.println("resp = "+ resp);
         return checkAndGetResponse(resp);
     }
 
@@ -81,6 +83,7 @@ public class PoloRestConnection {
 
     private JSONObject checkAndGetResponse(String resp) {
         JSONObject json = JSON.parseObject(resp);
+        System.out.println("checkAndGetResponse.json="+ json);
         try {
             if (json.containsKey("code")) {
                 int code = json.getInteger("code");

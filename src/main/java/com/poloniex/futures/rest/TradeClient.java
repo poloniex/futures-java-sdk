@@ -9,6 +9,16 @@ import java.util.List;
 
 public interface TradeClient {
 
+    UserRankFeeResponse queryUserRankFeeRate();
+
+    UserOrderMaxActiveConfigResponse queryUserMaxOrderActiveConfig();
+
+
+    Integer queryMarginType(QueryMarginTypeRequest request);
+
+    void changeMarginType(ChangeMarginTypeRequest request);
+
+
     PlaceOrderResponse placeOrder(PlaceOrderRequest request);
 
     CancelOrdersResponse cancelOrder(CancelOrderRequest request);
@@ -30,4 +40,10 @@ public interface TradeClient {
     List<TradeDetail> getRecentFills();
 
     OrderStatisticsResponse openOrderStatistics(OrderStatisticsRequest request);
+
+
+    TradeOrderMaxActiveResponse queryMaxActiveOrders();
+
+
+    List<TradeOrderMaxLimitResponse> queryMaxRiskLimit(OrderStatisticsRequest request);
 }

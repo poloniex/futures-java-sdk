@@ -14,7 +14,7 @@ import lombok.ToString;
 public class PoloOptions implements Options {
 
     @Builder.Default
-    private String restHost = "https://futures-api.poloniex.com";
+    private String restHost = "https://dev-ng-futures-api.poloniex.com";
 
     private String apiKey;
 

@@ -46,6 +46,8 @@ public class MarketClientImpl implements MarketClient {
 
     public List<ContractResponse> getOpenContractList() {
         JSONObject result = restConnection.executeGet(REST_OPEN_CONTRACT_PATH, UrlParamsBuilder.build());
+
+        System.out.println("result = " + result);
         return JSONUtils.toList(result.getJSONArray("data"), ContractResponse.class);
     }
 
