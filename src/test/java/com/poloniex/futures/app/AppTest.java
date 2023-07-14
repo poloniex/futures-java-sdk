@@ -4,6 +4,7 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Map;
@@ -16,8 +17,17 @@ import static com.poloniex.futures.app.APPConstants.*;
 public class AppTest {
 
 
+    private String env = "local";
+
     private String HOST = "https://dev-ng-sapi.poloniex.com/";
     private String TOKEN = "070a595afe0c4132a7037aac3fcc38e3";
+
+    @Before
+    public void init() {
+        if (env.equalsIgnoreCase("local")) {
+            HOST = "127.0.0.1:8090/";
+        }
+    }
 
 
     @Test
@@ -47,7 +57,6 @@ public class AppTest {
     }
 
 
-
     @Test
     public void test4() {
         String body = httpGetNoAUTH(kline_list)
@@ -62,8 +71,6 @@ public class AppTest {
                 .execute().body();
         log.info("body:{}", body);
     }
-
-
 
 
     @Test

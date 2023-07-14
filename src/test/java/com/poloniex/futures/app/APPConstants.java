@@ -5,6 +5,8 @@ public class APPConstants {
 
     public static String contract_info = "app/v1/kumex-contract/contract-info"; //网路ok
 
+    public static String contracts_info = "app/v1/kumex-contract/contracts-info"; //网路ok
+
     public static String account_wallet_overview = "app/v1/kumex-account/account-wallet-overview";
 
     public static String market_list = "app/v1/kumex-market/market/list";//网路ok
@@ -19,7 +21,7 @@ public class APPConstants {
     public static String c = "/v1/ucenter/favorite-symbol/del/(symbol)";
 
 
-    public static String contracts_info = "app/v1/kumex-contract/contracts-info"; //网路ok
+
 
 
 }
