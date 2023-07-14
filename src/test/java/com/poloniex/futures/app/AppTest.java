@@ -17,7 +17,7 @@ import static com.poloniex.futures.app.APPConstants.*;
 public class AppTest {
 
 
-    private String env = "local";
+    private String env = "local1";
 
     private String HOST = "https://dev-ng-sapi.poloniex.com/";
     private String TOKEN = "070a595afe0c4132a7037aac3fcc38e3";
