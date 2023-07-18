@@ -37,7 +37,7 @@ public class BulletClientImpl {
         builder.putToPost("source","mac");
         builder.putToPost("encrypt","true");
         builder.putToPost("front","api");
-        JSONObject result = restConnection.executePostWithSignature("/api/v1/bullet-private",builder);
+        JSONObject result = restConnection.executeGetWithSignature("/api/v1/bullet-private",builder);
         return result.toJSONString();
     }
 

@@ -39,7 +39,8 @@ public class WebSocketTokenClientImpl implements WebSocketTokenClient {
     @Override
     public WebSocketTokenResponse getPrivateToken() {
         UrlParamsBuilder builder = UrlParamsBuilder.build();
-        JSONObject result = restConnection.executePostWithSignature(REST_PRIVATE_TOKEN_PATH, builder);
+//        JSONObject result = restConnection.executePostWithSignature(REST_PRIVATE_TOKEN_PATH, builder);
+        JSONObject result = restConnection.executeGetWithSignature(REST_PRIVATE_TOKEN_PATH, builder);
         return JSONUtils.toBean(result.getString("data"), WebSocketTokenResponse.class);
     }
 }
