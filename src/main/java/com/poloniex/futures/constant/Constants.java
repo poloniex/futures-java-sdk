@@ -21,7 +21,7 @@ public class Constants {
 
 
     public static final String API_KEY = "626a5c8e8fddb40007619e03";
-    public static final String SECRET_KEY = "2a892c3a-48f7-4c1f-8434-8b055c3dee88";
+    public static final String SECRET_KEY = "2a892c3a-48f7-4c1f-8434-8b055c3dee8";
     public static final String PASS_PHRASE = "12345678";
 
     public static final String REST_HOST = "https://dev-ng-futures-api.poloniex.com";

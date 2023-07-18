@@ -38,8 +38,9 @@ public class PublicWSClientTest {
 
     static Long maxAwait = 1200L;
 
-    private static final String SYMBOL = "BTCUSDTPERP,ETHUSDTPERP,BSVUSDTPERP,BCHUSDTPERP,YFIUSDTPERP,UNIUSDTPERP,LINKUSDTPERP";
+//    private static final String SYMBOL = "BTCUSDTPERP,ETHUSDTPERP,BSVUSDTPERP,BCHUSDTPERP,YFIUSDTPERP,UNIUSDTPERP,LINKUSDTPERP";
 
+    private static final String SYMBOL = "aaaa";
 
     @Before
     public void setUp() {

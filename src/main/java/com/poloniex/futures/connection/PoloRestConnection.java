@@ -46,7 +46,10 @@ public class PoloRestConnection {
 
     public JSONObject executeGetWithSignature(String path, UrlParamsBuilder paramsBuilder) {
         Options options = this.getOptions();
-        String url = options.getRestHost() + path + paramsBuilder.buildUrl();
+        String url = options.getRestHost() + path;
+        if(null !=paramsBuilder){
+            url = url + paramsBuilder.buildUrl();
+        }
         Request executeRequest = new Request.Builder()
                 .url(url)
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_FORM)

@@ -32,7 +32,7 @@ public class WebSocketTokenClientImpl implements WebSocketTokenClient {
     @Override
     public WebSocketTokenResponse getPublicToken() {
         UrlParamsBuilder builder = UrlParamsBuilder.build();
-        JSONObject result = restConnection.executePost(REST_PUBLIC_TOKEN_PATH, builder);
+        JSONObject result = restConnection.executeGet(REST_PUBLIC_TOKEN_PATH, builder);
         return JSONUtils.toBean(result.getString("data"), WebSocketTokenResponse.class);
     }
 

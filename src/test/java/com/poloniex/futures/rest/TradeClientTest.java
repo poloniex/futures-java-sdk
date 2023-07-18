@@ -95,7 +95,7 @@ public class TradeClientTest {
                 .clientOid(IdGenerator.getNextId().toString())
                 .side("buy")
                 .type("limit")
-                .price("3.13")
+                .price("3.51")
                 //.stop("down")
                 .size(1)
                 .leverage("13")
