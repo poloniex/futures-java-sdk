@@ -29,7 +29,7 @@ public class MarketClientTest {
     @Test
     public void test_getRealTimeTicker() {
         MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
-        MarketTickerRequest request = MarketTickerRequest.builder().symbol("BTCUSDTPERP").build();
+        MarketTickerRequest request = MarketTickerRequest.builder().symbol("COMUSDTPERP").build();
         MarketTickerResponse result = client.getRealTimeTicker(request);
         System.out.println(JSON.toJSON(result));
     }
@@ -45,7 +45,7 @@ public class MarketClientTest {
     @Test
     public void test_getFullOrderBookL2() {
         MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
-        OrderBookRequest request = OrderBookRequest.builder().symbol("BTCUSDTPERP").build();
+        OrderBookRequest request = OrderBookRequest.builder().symbol("COMBOUSDTPERP").build();
         OrderBookL2Response result = client.getFullOrderBookL2(request);
         System.out.println(JSON.toJSON(result));
     }
@@ -78,7 +78,7 @@ public class MarketClientTest {
     @Test
     public void test_getInterestRateList() {
         MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
-        InterestRateRequest request = InterestRateRequest.builder().symbol(".ETHINT").startAt(1603734839000L).build();
+        InterestRateRequest request = InterestRateRequest.builder().symbol(".MTLINT").startAt(1603734839000L).build();
         InterestRateResponse result = client.getInterestRateList(request);
         System.out.println(result.getDataList().size());
         System.out.println(JSON.toJSON(result));
@@ -87,7 +87,7 @@ public class MarketClientTest {
     @Test
     public void test_getIndexList() {
         MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
-        IndexRequest request = IndexRequest.builder().symbol(".PXBTUSDT").startAt(1603734839000L).build();
+        IndexRequest request = IndexRequest.builder().symbol(".PMTLUSDT").startAt(1603734839000L).build();
         IndexResponse result = client.getIndexList(request);
         System.out.println(result.getDataList().size());
         System.out.println(JSON.toJSON(result));
@@ -104,7 +104,7 @@ public class MarketClientTest {
     @Test
     public void test_getPremiumIndex() {
         MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
-        PremiumIndexRequest request = PremiumIndexRequest.builder().symbol(".BTCUSDTPERPPI").build();
+        PremiumIndexRequest request = PremiumIndexRequest.builder().symbol(".COMBOUSDTPERPPI").build();
         PremiumIndexResponse result = client.getPremiumIndex(request);
         System.out.println(JSON.toJSON(result));
     }

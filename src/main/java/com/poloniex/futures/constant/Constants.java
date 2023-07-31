@@ -12,13 +12,15 @@ public class Constants {
 //    public static final String SECRET_KEY_DEV_1 = "2a892c3a-48f7-4c1f-8434-8b055c3dee88";
 //    public static final String PASS_PHRASE_DEV = "12345678";
 
-//    public static final String API_KEY = "626a5d038fddb40007619e09";
-//    public static final String SECRET_KEY = "c964cac-67bc-464b-9e48-f17b8c2f82f0";
-//    public static final String PASS_PHRASE = "scu1043111166";
-//
-//    public static final String REST_HOST = "http://dev-ng-futures-api.poloniex.com";
+//    public static final String API_KEY = "64be75d6978ec921666aea4c";
+//    public static final String SECRET_KEY = "8a940fcd-4822-4b80-9d0f-d835ed991f36";
+//    public static final String PASS_PHRASE = "CxCWopSd";
+////
+//    public static final String REST_HOST = "https://test-ng-futures-api.poloniex.com";
 
-
+//# API_KEY  = '64be75d6978ec921666aea4c'
+//            # SECRET = '8a940fcd-4822-4b80-9d0f-d835ed991f36'
+//            # API_PASSPHRASE = 'CxCWopSd'
 
     public static final String API_KEY = "626a5c8e8fddb40007619e03";
     public static final String SECRET_KEY = "2a892c3a-48f7-4c1f-8434-8b055c3dee8";

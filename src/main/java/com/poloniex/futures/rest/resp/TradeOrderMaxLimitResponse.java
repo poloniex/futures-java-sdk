@@ -10,5 +10,5 @@ public class TradeOrderMaxLimitResponse implements Serializable {
 
     private String symbol;
 
-    private int maxCount;
+    private int maxLot;
 }

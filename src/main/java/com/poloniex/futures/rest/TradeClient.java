@@ -25,6 +25,8 @@ public interface TradeClient {
 
     CancelOrdersResponse cancelOrders(CancelOrdersRequest request);
 
+    CancelOrdersResponse batchCancelOrders(BatchCancelOrderRequest request);
+
     CancelOrdersResponse cancelStopOrders(CancelOrdersRequest request);
 
     OrderListResponse getOrderList(OrderListRequest request);
@@ -46,4 +48,6 @@ public interface TradeClient {
 
 
     List<TradeOrderMaxLimitResponse> queryMaxRiskLimit(OrderStatisticsRequest request);
+
+
 }

@@ -33,6 +33,8 @@ public class TradeClientImpl implements TradeClient {
     public static final String REST_CREATE_ORDER_PATH = "/api/v1/orders";
     public static final String REST_CANCEL_ORDER_PATH = "/api/v1/orders/$orderId$";
     public static final String REST_CANCEL_ORDERS_PATH = "/api/v1/orders";
+
+    public static final String REST_BATCH_CANCEL_ORDERS_PATH = "/api/v1/batchOrders";
     public static final String REST_CANCEL_STOP_ORDERS_PATH = "/api/v1/stopOrders";
     public static final String REST_ORDER_LIST_PATH = "/api/v1/orders";
     public static final String REST_STOP_ORDER_LIST_PATH = "/api/v1/stopOrders";
@@ -48,12 +50,14 @@ public class TradeClientImpl implements TradeClient {
 
     public static final String REST_MAX_RISK_LIMIT = "/api/v1/maxRiskLimit";
 
+//    public static final String REST_USER_LOT_SIZE = "/api/v1/maxRiskLimit";
+
 
     public static final String REST_QUERY_MARGINTYPE_PATH = "/api/v1/marginType/query";
 
     public static final String REST_CHANGE_MARGINTYPE_PATH = "/api/v1/marginType/change";
 
-    public static final String REST_QUERY_USER_FEE_RATE_PATH = " /api/v1/userFeeRate";
+    public static final String REST_QUERY_USER_FEE_RATE_PATH = "/api/v1/userFeeRate";
 
     public static final  String REST_QUERY_USER_MAX_ORDER_CONFIG_PATH = "/api/v1/maxActiveOrders";
 
@@ -159,6 +163,15 @@ public class TradeClientImpl implements TradeClient {
         JSONObject result = restConnection.executeDeleteWithSignature(REST_CANCEL_ORDERS_PATH,
                 UrlParamsBuilder.build().putToUrl("symbol", request.getSymbol()));
         return JSONUtils.toBean(result.getString("data"), CancelOrdersResponse.class);
+    }
+
+    @Override
+    public CancelOrdersResponse batchCancelOrders(BatchCancelOrderRequest request) {
+
+        JSONObject result = restConnection.executeDeleteWithSignature(REST_BATCH_CANCEL_ORDERS_PATH,
+                UrlParamsBuilder.build().putToPost("orderIds", request.getOrderIdList()));
+        return JSONUtils.toBean(result.getString("data"), CancelOrdersResponse.class);
+
     }
 
     @Override
@@ -284,4 +297,6 @@ public class TradeClientImpl implements TradeClient {
         JSONObject result = restConnection.executeGetWithSignature(REST_MAX_RISK_LIMIT, builder);
         return JSONUtils.toList(result.getString("data"), TradeOrderMaxLimitResponse.class);
     }
+
+
 }

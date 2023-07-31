@@ -1,5 +1,6 @@
 package com.poloniex.futures.connection;
 
+import com.alibaba.fastjson.JSON;
 import com.poloniex.futures.constant.APIConstants;
 import com.poloniex.futures.exception.SDKException;
 import okhttp3.*;
@@ -87,6 +88,7 @@ public class ConnectionFactory {
         String str = null;
         try {
             log.info("[Request URL]{}", request.url());
+            log.info("Request:{}", JSON.toJSONString(request.body()));
             Request temp = request.newBuilder().addHeader(APIConstants.API_HEADER_NEED_AUTH, "true").build();
             response = client.newCall(temp).execute();
             if (response.code() != 200) {

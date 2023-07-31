@@ -75,6 +75,7 @@ public class MarketClientImpl implements MarketClient {
     public OrderBookL2Response getFullOrderBookL2(OrderBookRequest request) {
         InputChecker.checker().shouldNotNull(request.getSymbol(), "symbol");
         JSONObject result = restConnection.executeGet(REST_ORDERBOOK_L2_PATH, UrlParamsBuilder.build().putToUrl("symbol", request.getSymbol()));
+        System.out.println("result = " + result);
         return JSONUtils.toBean(result.getString("data"), OrderBookL2Response.class);
     }
 
