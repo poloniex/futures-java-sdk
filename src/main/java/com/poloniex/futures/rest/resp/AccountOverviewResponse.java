@@ -15,4 +15,5 @@ public class AccountOverviewResponse {
     private BigDecimal positionMargin;
     private BigDecimal unrealisedPNL;
     private String currency;
+    private TrialAccountOverview trialAccountOverview;
 }

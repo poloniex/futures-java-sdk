@@ -68,6 +68,8 @@ public class PoloRestConnection {
                 .post(paramsBuilder.buildPostBody())
                 .build();
         System.out.println("executeRequest = "+ executeRequest+ paramsBuilder.buildUrl() + " " +paramsBuilder.buildPostBody());
+        System.out.println("option = " + options);
+
         String resp = ConnectionFactory.executeWithSignature(executeRequest);
         System.out.println("resp = "+ resp);
         return checkAndGetResponse(resp);
@@ -76,9 +78,9 @@ public class PoloRestConnection {
     public JSONObject executeDeleteWithSignature(String path, UrlParamsBuilder paramsBuilder) {
         Options options = this.getOptions();
         String requestUrl = options.getRestHost() + path;
-//        if(null !=paramsBuilder){
-//            requestUrl = requestUrl + paramsBuilder.buildUrl();
-//        }
+        if(null !=paramsBuilder){
+            requestUrl = requestUrl + paramsBuilder.buildUrl();
+        }
         Request executeRequest = new Request.Builder()
                 .url(requestUrl)
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_JSON)

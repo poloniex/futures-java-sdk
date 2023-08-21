@@ -27,7 +27,7 @@ public class TradeClientTest {
                 .build();
         TradeClient client = new TradeClientImpl(options);
         QueryMarginTypeRequest request = QueryMarginTypeRequest.builder()
-                .symbol("BTCUSDTPERP")
+                .symbol("COMBOUSDTPERP")
                 .build();
         UserOrderMaxActiveConfigResponse result = client.queryUserMaxOrderActiveConfig();
         System.out.println(JSON.toJSONString(result));
@@ -141,7 +141,7 @@ public class TradeClientTest {
 //                .leverage("10")
 //                .build();
 //        PlaceOrderResponse create = client.placeOrder(request);
-        CancelOrderRequest request1 = CancelOrderRequest.builder().orderId("200200643041034240").build();
+        CancelOrderRequest request1 = CancelOrderRequest.builder().orderId("209714346652377088").build();
         CancelOrdersResponse result = client.cancelOrder(request1);
         System.out.println(JSON.toJSONString(result));
     }
@@ -366,7 +366,7 @@ public class TradeClientTest {
 //                .leverage("10")
 //                .build();
 //        PlaceOrderResponse create = client.placeOrder(request);
-        OrderDetailRequest request1 = OrderDetailRequest.builder().orderId("202534840019722240").build();
+        OrderDetailRequest request1 = OrderDetailRequest.builder().orderId("").build();
         OrderDetail result = client.getOrderDetail(request1);
         System.out.println(JSON.toJSONString(result));
     }

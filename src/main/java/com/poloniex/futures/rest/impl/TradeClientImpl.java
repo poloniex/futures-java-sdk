@@ -240,6 +240,7 @@ public class TradeClientImpl implements TradeClient {
         InputChecker.checker().shouldNotNull(request.getOrderId(), "orderId");
         String url = REST_ORDER_DETAIL_PATH.replace("$orderId$", request.getOrderId());
         JSONObject result = restConnection.executeGetWithSignature(url, UrlParamsBuilder.build());
+        System.out.println("getOrderDetail="+ result);
         return JSONUtils.toBean(result.getString("data"), OrderDetail.class);
     }
 
