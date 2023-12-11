@@ -30,4 +30,6 @@ public interface TradeClient {
     List<TradeDetail> getRecentFills();
 
     OrderStatisticsResponse openOrderStatistics(OrderStatisticsRequest request);
+
+    void getMaxRiskLimit(MaxRiskLimitRequest request);
 }
