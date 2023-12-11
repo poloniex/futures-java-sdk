@@ -30,9 +30,9 @@ public class AccountClientTest {
     @Test
     public void test_getTransactionHistory() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY_NG_TEST_7)
-                .secretKey(Constants.SECRET_KEY_TEST_7)
-                .passphrase(Constants.PASS_PHRASE_TEST)
+//                .apiKey(Constants.API_KEY_NG_TEST_7)
+//                .secretKey(Constants.SECRET_KEY_TEST_7)
+//                .passphrase(Constants.PASS_PHRASE_TEST)
                 .restHost(Constants.REST_HOST_NG_TEST)
                 .build();
         AccountClient client = new AccountClientImpl(options);
