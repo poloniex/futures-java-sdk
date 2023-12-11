@@ -186,7 +186,27 @@ public class MarketClientImpl implements MarketClient {
     public CurrentFundingRateResponse getCurrentFundingRate(CurrentFundingRateRequest request) {
         InputChecker.checker().shouldNotNull(request.getSymbol(), "symbol");
         String url = REST_CURRENT_FUNDING_RATE_PATH.replace("$symbol$", request.getSymbol());
-        JSONObject result = restConnection.executeGet(url, UrlParamsBuilder.build());
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        if (request.getStartAt() != null) {
+            builder.putToUrl("startAt", request.getStartAt());
+        }
+        if (request.getEndAt() != null) {
+            builder.putToUrl("endAt", request.getEndAt());
+        }
+        if (request.getOffset() != null) {
+            builder.putToUrl("offset", request.getOffset());
+        }
+        if (request.getForward() != null) {
+            builder.putToUrl("forward", request.getForward().toString());
+        }
+        if (request.getMaxCount() != null) {
+            builder.putToUrl("maxCount", request.getMaxCount());
+        }
+        if (request.getReverse() != null) {
+            builder.putToUrl("reverse", request.getReverse().toString());
+        }
+
+        JSONObject result = restConnection.executeGet(url, builder);
         return JSONUtils.toBean(result.getString("data"), CurrentFundingRateResponse.class);
     }
 

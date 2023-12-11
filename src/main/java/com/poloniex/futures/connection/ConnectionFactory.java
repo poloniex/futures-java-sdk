@@ -57,7 +57,7 @@ public class ConnectionFactory {
         Response response = null;
         String str = null;
         try {
-            log.debug("[Request URL]{}", request.url());
+            log.info("[Request URL]{}", request.url());
             response = client.newCall(request).execute();
             if (response.code() != 200) {
                 throw new SDKException(SDKException.EXEC_ERROR, "[Execute] Response Status Error : " + response.code() + " message:" + response.message());
@@ -68,7 +68,7 @@ public class ConnectionFactory {
             } else {
                 throw new SDKException(SDKException.ENV_ERROR, "[Execute] Cannot get the response from server");
             }
-            log.debug("[Response]{}", str);
+            log.info("[Response]{}", str);
             return str;
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,7 +86,7 @@ public class ConnectionFactory {
         Response response = null;
         String str = null;
         try {
-            log.debug("[Request URL]{}", request.url());
+            log.info("[Request URL]{}", request.url());
             Request temp = request.newBuilder().addHeader(APIConstants.API_HEADER_NEED_AUTH, "true").build();
             response = client.newCall(temp).execute();
             if (response.code() != 200) {
@@ -98,7 +98,7 @@ public class ConnectionFactory {
             } else {
                 throw new SDKException(SDKException.ENV_ERROR, "[Execute] Cannot get the response from server");
             }
-            log.debug("[Response]{}", str);
+            log.info("[Response]{}", str);
             return str;
         } catch (IOException e) {
             e.printStackTrace();

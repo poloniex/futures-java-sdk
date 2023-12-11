@@ -80,14 +80,16 @@ public class PositionClientTest {
     @Test
     public void test_getFundingHistory() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY)
-                .secretKey(Constants.SECRET_KEY)
-                .passphrase(Constants.PASS_PHRASE)
-                .restHost(Constants.REST_HOST)
+                .apiKey(Constants.API_KEY_NG_TEST_7)
+                .secretKey(Constants.SECRET_KEY_TEST_7)
+                .passphrase(Constants.PASS_PHRASE_TEST)
+                .restHost(Constants.REST_HOST_NG_TEST)
                 .build();
         PositionClient client = new PositionClientImpl(options);
         FundingHistoryRequest request = FundingHistoryRequest.builder()
                 .symbol("BTCUSDTPERP")
+                .maxCount(2)
+                .offset(2L)
                 .build();
         FundingHistoryResponse result = client.getFundingHistory(request);
         System.out.println(JSON.toJSONString(result));

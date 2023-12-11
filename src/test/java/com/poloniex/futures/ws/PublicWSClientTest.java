@@ -1,15 +1,31 @@
 package com.poloniex.futures.ws;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import com.alibaba.fastjson.JSON;
-import com.poloniex.futures.constant.Constants;
 import com.poloniex.futures.connection.Options;
 import com.poloniex.futures.connection.PoloOptions;
 import com.poloniex.futures.constant.APIConstants;
-import com.poloniex.futures.rest.event.*;
+import com.poloniex.futures.constant.Constants;
+import com.poloniex.futures.rest.event.ContractMarketEvent;
+import com.poloniex.futures.rest.event.ExecutionChangeEvent;
+import com.poloniex.futures.rest.event.Level2ChangeEvent;
+import com.poloniex.futures.rest.event.Level2OrderBookEvent;
+import com.poloniex.futures.rest.event.Level3ChangeEvent;
+import com.poloniex.futures.rest.event.TickerChangeEvent;
+import com.poloniex.futures.rest.event.TransactionStatisticEvent;
 import com.poloniex.futures.utils.IdGenerator;
 import com.poloniex.futures.websocket.PublicWSClient;
 import com.poloniex.futures.websocket.impl.PublicWSClientImpl;
 import com.poloniex.futures.websocket.listener.PoloWebsocketListener;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.LockSupport;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
@@ -17,16 +33,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class PublicWSClientTest {
 
@@ -86,15 +92,17 @@ public class PublicWSClientTest {
     @Test
     public void test_onTicker() throws Exception {
         AtomicReference<TickerChangeEvent> event = new AtomicReference<>();
-        CountDownLatch cdl = new CountDownLatch(1);
+//        CountDownLatch cdl = new CountDownLatch(1);
         String uuid = wsClient.onTicker(response -> {
-            event.set(response.getData());
-            wsClient.unsubscribe(APIConstants.API_TICKER_TOPIC_PREFIX, SYMBOL);
-            cdl.countDown();
+//            event.set(response.getData());
+//            wsClient.unsubscribe(APIConstants.API_TICKER_TOPIC_PREFIX, SYMBOL);
+//            cdl.countDown();
+            System.out.println(JSON.toJSON(response.getData()));
         }, SYMBOL);
+        LockSupport.park();
         System.out.println(uuid);
-        cdl.await(maxAwait, TimeUnit.SECONDS);
-        System.out.println(JSON.toJSON(event));
+//        cdl.await(maxAwait, TimeUnit.SECONDS);
+
     }
 
     @Test

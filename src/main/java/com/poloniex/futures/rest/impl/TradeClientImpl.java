@@ -43,6 +43,8 @@ public class TradeClientImpl implements TradeClient {
     public static final String REST_RECENT_FILLS_PATH = "/api/v1/recentFills";
     public static final String REST_OPEN_ORDER_STATISTICS_PATH = "/api/v1/openOrderStatistics";
 
+    public static final String REST_MAX_RISK_LIMIT = "/api/v1/maxRiskLimit";
+
 
     @Override
     public PlaceOrderResponse placeOrder(PlaceOrderRequest request) {
@@ -221,5 +223,16 @@ public class TradeClientImpl implements TradeClient {
         JSONObject result = restConnection.executeGetWithSignature(REST_OPEN_ORDER_STATISTICS_PATH,
                 UrlParamsBuilder.build().putToUrl("symbol", request.getSymbol()));
         return JSONUtils.toBean(result.getString("data"), OrderStatisticsResponse.class);
+    }
+
+    @Override
+    public void getMaxRiskLimit(MaxRiskLimitRequest request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        if (StringUtils.isNotBlank(request.getSymbol())) {
+            builder.putToUrl("symbol", request.getSymbol());
+        }
+        JSONObject result = restConnection.executeGetWithSignature(REST_MAX_RISK_LIMIT,
+                builder);
+        System.out.println(result);
     }
 }

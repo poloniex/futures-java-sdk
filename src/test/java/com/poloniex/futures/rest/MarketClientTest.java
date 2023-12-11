@@ -1,6 +1,7 @@
 package com.poloniex.futures.rest;
 
 import com.alibaba.fastjson.JSON;
+import com.poloniex.futures.constant.Constants;
 import com.poloniex.futures.rest.req.*;
 import com.poloniex.futures.rest.resp.*;
 import com.poloniex.futures.connection.PoloOptions;
@@ -13,7 +14,8 @@ public class MarketClientTest {
 
     @Test
     public void test_getOpenContractList() {
-        MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
+        MarketClient client = new MarketClientImpl(
+                PoloOptions.builder().restHost(Constants.REST_HOST_NG_TEST).build());
         List<ContractResponse> result = client.getOpenContractList();
         System.out.println(JSON.toJSON(result));
     }
@@ -68,7 +70,8 @@ public class MarketClientTest {
 
     @Test
     public void test_getTradeHistory() {
-        MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
+        MarketClient client = new MarketClientImpl(PoloOptions.builder()
+                .restHost(Constants.REST_HOST_NG_TEST).build());
         TradeHistoryRequest request = TradeHistoryRequest.builder().symbol("BTCUSDTPERP").build();
         List<TradeHistoryResponse> result = client.getTradeHistory(request);
         System.out.println(result.size());
@@ -77,8 +80,9 @@ public class MarketClientTest {
 
     @Test
     public void test_getInterestRateList() {
-        MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
-        InterestRateRequest request = InterestRateRequest.builder().symbol(".ETHINT").startAt(1603734839000L).build();
+        MarketClient client = new MarketClientImpl(PoloOptions.builder()
+                .restHost(Constants.REST_HOST_NG_STG_INTERNAL).build());
+        InterestRateRequest request = InterestRateRequest.builder().symbol(".ETHINT").build();
         InterestRateResponse result = client.getInterestRateList(request);
         System.out.println(result.getDataList().size());
         System.out.println(JSON.toJSON(result));
@@ -103,23 +107,30 @@ public class MarketClientTest {
 
     @Test
     public void test_getPremiumIndex() {
-        MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
-        PremiumIndexRequest request = PremiumIndexRequest.builder().symbol(".BTCUSDTPERPPI").build();
+        MarketClient client = new MarketClientImpl(PoloOptions.builder()
+                .restHost(Constants.REST_HOST_NG_TEST).build());
+        PremiumIndexRequest request = PremiumIndexRequest.builder().symbol(".BTCUSDTPERPPI").startAt(" ").reverse("av").build();
         PremiumIndexResponse result = client.getPremiumIndex(request);
         System.out.println(JSON.toJSON(result));
     }
 
     @Test
     public void test_CurrentFundingRateResponse() {
-        MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
-        CurrentFundingRateRequest request = CurrentFundingRateRequest.builder().symbol(".BTCUSDTPERPFPI8H").build();
+        MarketClient client = new MarketClientImpl(PoloOptions.builder()
+                .restHost(Constants.REST_HOST_NG_TEST).build());
+        CurrentFundingRateRequest request = CurrentFundingRateRequest.builder()
+                .symbol(".BTCUSDTPERPFPI8H")
+                .maxCount(2)
+                .offset(2L)
+                .build();
         CurrentFundingRateResponse result = client.getCurrentFundingRate(request);
         System.out.println(JSON.toJSON(result));
     }
 
     @Test
     public void test_KlineRequest() {
-        MarketClient client = new MarketClientImpl(PoloOptions.builder().build());
+        MarketClient client = new MarketClientImpl(PoloOptions.builder()
+                .restHost(Constants.REST_HOST_NG_TEST).build());
         KlineRequest request = KlineRequest.builder().symbol("BTCUSDTPERP").granularity(1).build();
         KlineResponse result = client.getKline(request);
         System.out.println(JSON.toJSON(result));

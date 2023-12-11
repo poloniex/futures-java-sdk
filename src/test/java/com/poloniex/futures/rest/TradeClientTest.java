@@ -19,18 +19,18 @@ public class TradeClientTest {
     @Test
     public void test_placeOrder() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY)
-                .secretKey(Constants.SECRET_KEY)
+                .apiKey(Constants.API_KEY_NG_STG_4)
+                .secretKey(Constants.SECRET_KEY_STG_4)
                 .passphrase(Constants.PASS_PHRASE)
-                .restHost(Constants.REST_HOST)
+                .restHost(Constants.REST_HOST_NG_STG)
                 .build();
         TradeClient client = new TradeClientImpl(options);
         PlaceOrderRequest request = PlaceOrderRequest.builder()
-                .symbol("BTCUSDTPERP")
+                .symbol("DOTUSDTPERP")
                 .clientOid(IdGenerator.getNextId().toString())
                 .side("buy")
                 .type("limit")
-                .price("12")
+                .price("6.2")
                 .size(1)
                 .leverage("10")
                 .build();
@@ -136,39 +136,63 @@ public class TradeClientTest {
         System.out.println(JSON.toJSONString(result));
     }
 
+    /**
+     *
+     public static void main(String[] args) {
+     String method = "GET";
+     String url = "/api/v1/orders/123132";
+
+     AntPathMatcher matcher = new AntPathMatcher();
+     List<ApiResource> apiResources = new ArrayList<>();
+     ApiResource resource = new ApiResource();
+     resource.setMethod("GET");
+     resource.setUri("/api/v1/orders/*");
+     apiResources.add(resource);
+     ApiResource resource2 = new ApiResource();
+     resource2.setMethod("GET");
+     resource2.setUri("/api/v1/account-overview");
+     apiResources.add(resource2);
+     boolean match = apiResources.stream().anyMatch(r -> {
+     return (method.equalsIgnoreCase(r.getMethod()))
+     && (r.getUri().equals(url) || matcher.match(r.getUri(), url));
+     });
+     System.out.println(match);
+     }
+     */
+
     @Test
     public void test_getOrderList() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY)
-                .secretKey(Constants.SECRET_KEY)
-                .passphrase(Constants.PASS_PHRASE)
-                .restHost(Constants.REST_HOST)
+                .apiKey(Constants.API_KEY_NG_TEST_7)
+                .secretKey(Constants.SECRET_KEY_TEST_7)
+                .passphrase(Constants.PASS_PHRASE_TEST)
+                .restHost(Constants.REST_HOST_NG_TEST)
                 .build();
         TradeClient client = new TradeClientImpl(options);
-        PlaceOrderRequest request = PlaceOrderRequest.builder()
-                .symbol("BTCUSDTPERP")
-                .clientOid(IdGenerator.getNextId().toString())
-                .side("buy")
-                .type("limit")
-                .price("1211")
-                .size(10)
-                .leverage("10")
-                .build();
-        client.placeOrder(request);
-        request = PlaceOrderRequest.builder()
-                .symbol("BTCUSDTPERP")
-                .clientOid(IdGenerator.getNextId().toString())
-                .side("buy")
-                .type("limit")
-                .price("1211")
-                .size(10)
-                .leverage("10")
-                .stop("down")
-                .stopPriceType("TP")
-                .stopPrice("123")
-                .build();
-        client.placeOrder(request);
-        OrderListRequest request1 = OrderListRequest.builder().status("active").build();
+//        PlaceOrderRequest request = PlaceOrderRequest.builder()
+//                .symbol("BTCUSDTPERP")
+//                .clientOid(IdGenerator.getNextId().toString())
+//                .side("buy")
+//                .type("limit")
+//                .price("1211")
+//                .size(10)
+//                .leverage("10")
+//                .build();
+//        client.placeOrder(request);
+//        request = PlaceOrderRequest.builder()
+//                .symbol("BTCUSDTPERP")
+//                .clientOid(IdGenerator.getNextId().toString())
+//                .side("buy")
+//                .type("limit")
+//                .price("1211")
+//                .size(10)
+//                .leverage("10")
+//                .stop("down")
+//                .stopPriceType("TP")
+//                .stopPrice("123")
+//                .build();
+//        client.placeOrder(request);
+        OrderListRequest request1 = OrderListRequest.builder().symbol("BTCUSDTPERP").status("active").build();
         OrderListResponse result = client.getOrderList(request1);
         System.out.println(JSON.toJSONString(result));
     }
@@ -287,5 +311,20 @@ public class TradeClientTest {
         OrderStatisticsRequest request = OrderStatisticsRequest.builder().symbol("BTCUSDTPERP").build();
         OrderStatisticsResponse result = client.openOrderStatistics(request);
         System.out.println(JSON.toJSONString(result));
+    }
+
+    @Test
+    public void test_getMaxRisiLimit() {
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY_NG_TEST_7)
+                .secretKey(Constants.SECRET_KEY_TEST_7)
+                .passphrase(Constants.PASS_PHRASE_TEST)
+                .restHost(Constants.REST_HOST_NG_TEST)
+                .build();
+        TradeClient client = new TradeClientImpl(options);
+        MaxRiskLimitRequest request = MaxRiskLimitRequest.builder().symbol("aaa").build();
+        client.getMaxRiskLimit(request);
+//        OrderStatisticsResponse result = client.openOrderStatistics(request);
+//        System.out.println(JSON.toJSONString(result));
     }
 }

@@ -10,9 +10,9 @@ import lombok.*;
 public class PremiumIndexRequest {
 
     private String symbol;
-    private Long startAt;
+    private String startAt;
     private Long endAt;
-    private Boolean reverse;
+    private String reverse;
     private Long offset;
     private Boolean forward;
     private Integer maxCount;
