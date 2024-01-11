@@ -44,13 +44,13 @@ public class PublicWSClientTest {
 
     static Long maxAwait = 1200L;
 
-    private static final String SYMBOL = "BTCUSDTPERP,ETHUSDTPERP,BSVUSDTPERP,BCHUSDTPERP,YFIUSDTPERP,UNIUSDTPERP,LINKUSDTPERP";
+    private static final String SYMBOL = "BTCUSDTPERP";
 
 
     @Before
     public void setUp() {
         Options options = PoloOptions.builder()
-                .restHost(Constants.REST_HOST)
+                .restHost(Constants.REST_HOST_NG_TEST)
                 .build();
         wsClient = new PublicWSClientImpl(options, new PoloWebsocketListener());
         wsClient.connect();
@@ -73,7 +73,8 @@ public class PublicWSClientTest {
     @Ignore
     public void test_connect_and_ping_close() {
         PoloWebsocketListener listener = new PoloWebsocketListener();
-        PublicWSClient client = new PublicWSClientImpl(PoloOptions.builder().build(), listener);
+        PublicWSClient client = new PublicWSClientImpl(PoloOptions.builder()
+                .restHost(Constants.REST_HOST_NG_TEST).build(), listener);
         client.ping("1");
         try {
             Thread.sleep(1000L);
@@ -97,7 +98,7 @@ public class PublicWSClientTest {
 //            event.set(response.getData());
 //            wsClient.unsubscribe(APIConstants.API_TICKER_TOPIC_PREFIX, SYMBOL);
 //            cdl.countDown();
-            System.out.println(JSON.toJSON(response.getData()));
+//            System.out.println(JSON.toJSON(response.getData()));
         }, SYMBOL);
         LockSupport.park();
         System.out.println(uuid);

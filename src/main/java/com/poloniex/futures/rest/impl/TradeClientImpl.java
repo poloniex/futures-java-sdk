@@ -33,6 +33,8 @@ public class TradeClientImpl implements TradeClient {
     public static final String REST_CREATE_ORDER_PATH = "/api/v1/orders";
     public static final String REST_CANCEL_ORDER_PATH = "/api/v1/orders/$orderId$";
     public static final String REST_CANCEL_ORDERS_PATH = "/api/v1/orders";
+
+    public static final String REST_BATCH_CANCEL_ORDERS_PATH = "/api/v1/batchOrders";
     public static final String REST_CANCEL_STOP_ORDERS_PATH = "/api/v1/stopOrders";
     public static final String REST_ORDER_LIST_PATH = "/api/v1/orders";
     public static final String REST_STOP_ORDER_LIST_PATH = "/api/v1/stopOrders";
@@ -115,6 +117,19 @@ public class TradeClientImpl implements TradeClient {
         JSONObject result = restConnection.executeDeleteWithSignature(REST_CANCEL_ORDERS_PATH,
                 UrlParamsBuilder.build().putToUrl("symbol", request.getSymbol()));
         return JSONUtils.toBean(result.getString("data"), CancelOrdersResponse.class);
+    }
+
+    @Override
+    public BatchCancelOrdersResponse batchCancelOrders(BatchCancelOrdersRequest request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        if (request.getOrderIds() != null) {
+            builder.putToPost("orderIds", request.getOrderIds());
+        }
+        if (request.getClientOids() != null) {
+            builder.putToPost("clientOids", request.getClientOids());
+        }
+        JSONObject result = restConnection.executeDeleteWithSignature(REST_BATCH_CANCEL_ORDERS_PATH, builder);
+        return JSONUtils.toBean(result.getString("data"), BatchCancelOrdersResponse.class);
     }
 
     @Override

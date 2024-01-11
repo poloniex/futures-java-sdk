@@ -15,6 +15,8 @@ public interface TradeClient {
 
     CancelOrdersResponse cancelOrders(CancelOrdersRequest request);
 
+    BatchCancelOrdersResponse batchCancelOrders(BatchCancelOrdersRequest request);
+
     CancelOrdersResponse cancelStopOrders(CancelOrdersRequest request);
 
     OrderListResponse getOrderList(OrderListRequest request);

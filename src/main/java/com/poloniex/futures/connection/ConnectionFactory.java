@@ -59,6 +59,7 @@ public class ConnectionFactory {
         try {
             log.info("[Request URL]{}", request.url());
             response = client.newCall(request).execute();
+            log.info("headers={}", response.headers());
             if (response.code() != 200) {
                 throw new SDKException(SDKException.EXEC_ERROR, "[Execute] Response Status Error : " + response.code() + " message:" + response.message());
             }
@@ -89,6 +90,7 @@ public class ConnectionFactory {
             log.info("[Request URL]{}", request.url());
             Request temp = request.newBuilder().addHeader(APIConstants.API_HEADER_NEED_AUTH, "true").build();
             response = client.newCall(temp).execute();
+            log.info("response={}", response);
             if (response.code() != 200) {
                 throw new SDKException(SDKException.EXEC_ERROR, "[Execute] Response Status Error : " + response.code() + " message:" + response.message());
             }

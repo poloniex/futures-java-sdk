@@ -37,6 +37,8 @@ public class AccountClientImpl implements AccountClient {
 
     public static final String REST_TRANSFER_OUT_PATH = "/api/v1/futures/transfer-out";
 
+    public static final String REST_INTERNAL_ACCOUNT_OVERVIEW_PATH = "/api/v1/futures/account-overview";
+
     @Override
     public AccountOverviewResponse getAccountOverview(AccountOverviewRequest request) {
         UrlParamsBuilder builder = UrlParamsBuilder.build();
@@ -45,6 +47,16 @@ public class AccountClientImpl implements AccountClient {
         }
         JSONObject result = restConnection.executeGetWithSignature(REST_ACCOUNT_OVERVIEW_PATH, builder);
         return JSONUtils.toBean(result.getString("data"), AccountOverviewResponse.class);
+    }
+
+    @Override
+    public void getInternalAccountOverview(String userId) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        if (StringUtils.isNotBlank(userId)) {
+            builder.putToUrl("userId", userId);
+        }
+        restConnection.executeGetWithSignature(REST_INTERNAL_ACCOUNT_OVERVIEW_PATH, builder);
+//        return JSONUtils.toBean(result.getString("data"), AccountOverviewResponse.class);
     }
 
     @Override

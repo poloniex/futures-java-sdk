@@ -49,6 +49,7 @@ public class PoloRestConnection {
         String url = options.getRestHost() + path + paramsBuilder.buildUrl();
         Request executeRequest = new Request.Builder()
                 .url(url)
+//                .addHeader("HOST", "stg-futures-api.poloniex.com")
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_FORM)
                 .build();
         String resp = ConnectionFactory.executeWithSignature(executeRequest);

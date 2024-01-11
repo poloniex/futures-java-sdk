@@ -1,38 +1,53 @@
 package com.poloniex.futures.rest;
 
 import com.alibaba.fastjson.JSON;
-import com.poloniex.futures.constant.Constants;
-import com.poloniex.futures.rest.req.*;
-import com.poloniex.futures.rest.resp.*;
+import com.google.common.collect.Lists;
 import com.poloniex.futures.connection.Options;
 import com.poloniex.futures.connection.PoloOptions;
+import com.poloniex.futures.constant.Constants;
 import com.poloniex.futures.model.trade.OrderDetail;
 import com.poloniex.futures.model.trade.TradeDetail;
 import com.poloniex.futures.rest.impl.TradeClientImpl;
+import com.poloniex.futures.rest.req.BatchCancelOrdersRequest;
+import com.poloniex.futures.rest.req.CancelOrderRequest;
+import com.poloniex.futures.rest.req.CancelOrdersRequest;
+import com.poloniex.futures.rest.req.FillsRequest;
+import com.poloniex.futures.rest.req.MaxRiskLimitRequest;
+import com.poloniex.futures.rest.req.OrderDetailRequest;
+import com.poloniex.futures.rest.req.OrderListRequest;
+import com.poloniex.futures.rest.req.OrderStatisticsRequest;
+import com.poloniex.futures.rest.req.PlaceOrderRequest;
+import com.poloniex.futures.rest.req.StopOrderListRequest;
+import com.poloniex.futures.rest.resp.BatchCancelOrdersResponse;
+import com.poloniex.futures.rest.resp.CancelOrdersResponse;
+import com.poloniex.futures.rest.resp.FillsResponse;
+import com.poloniex.futures.rest.resp.OrderListResponse;
+import com.poloniex.futures.rest.resp.OrderStatisticsResponse;
+import com.poloniex.futures.rest.resp.PlaceOrderResponse;
+import com.poloniex.futures.rest.resp.StopOrderListResponse;
 import com.poloniex.futures.utils.IdGenerator;
-import org.junit.Test;
-
 import java.util.List;
+import org.junit.Test;
 
 public class TradeClientTest {
 
     @Test
     public void test_placeOrder() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY_NG_STG_4)
-                .secretKey(Constants.SECRET_KEY_STG_4)
-                .passphrase(Constants.PASS_PHRASE)
-                .restHost(Constants.REST_HOST_NG_STG)
+                .apiKey(Constants.API_KEY_STG_MIYA)
+                .secretKey(Constants.SECRET_KEY_STG_MIYA)
+                .passphrase(Constants.PASS_PHRASE_STG_MIYA)
+                .restHost(Constants.REST_HOST_OLD_STG)
                 .build();
         TradeClient client = new TradeClientImpl(options);
         PlaceOrderRequest request = PlaceOrderRequest.builder()
-                .symbol("DOTUSDTPERP")
+                .symbol("BTCUSDTPERP")
                 .clientOid(IdGenerator.getNextId().toString())
                 .side("buy")
                 .type("limit")
-                .price("6.2")
+                .price("40000")
                 .size(1)
-                .leverage("10")
+                .leverage("100")
                 .build();
         PlaceOrderResponse result = client.placeOrder(request);
         System.out.println(JSON.toJSONString(result));
@@ -65,35 +80,57 @@ public class TradeClientTest {
     @Test
     public void test_cancelOrders() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY)
-                .secretKey(Constants.SECRET_KEY)
-                .passphrase(Constants.PASS_PHRASE)
-                .restHost(Constants.REST_HOST)
+                .apiKey(Constants.API_KEY_NG_TEST_7)
+                .secretKey(Constants.SECRET_KEY_TEST_7)
+                .passphrase(Constants.PASS_PHRASE_TEST)
+                .restHost(Constants.REST_HOST_NG_TEST)
                 .build();
         TradeClient client = new TradeClientImpl(options);
-        PlaceOrderRequest request = PlaceOrderRequest.builder()
-                .symbol("BTCUSDTPERP")
-                .clientOid(IdGenerator.getNextId().toString())
-                .side("buy")
-                .type("limit")
-                .price("12")
-                .size(10)
-                .leverage("10")
-                .build();
-        client.placeOrder(request);
-        request = PlaceOrderRequest.builder()
-                .symbol("BTCUSDTPERP")
-                .clientOid(IdGenerator.getNextId().toString())
-                .side("buy")
-                .type("limit")
-                .price("12")
-                .size(10)
-                .leverage("10")
-                .build();
-        client.placeOrder(request);
+//        PlaceOrderRequest request = PlaceOrderRequest.builder()
+//                .symbol("BTCUSDTPERP")
+//                .clientOid(IdGenerator.getNextId().toString())
+//                .side("buy")
+//                .type("limit")
+//                .price("12")
+//                .size(10)
+//                .leverage("10")
+//                .build();
+//        client.placeOrder(request);
+//        request = PlaceOrderRequest.builder()
+//                .symbol("BTCUSDTPERP")
+//                .clientOid(IdGenerator.getNextId().toString())
+//                .side("buy")
+//                .type("limit")
+//                .price("12")
+//                .size(10)
+//                .leverage("10")
+//                .build();
+//        client.placeOrder(request);
         CancelOrdersRequest request1 = CancelOrdersRequest.builder().symbol("BTCUSDTPERP").build();
         CancelOrdersResponse result = client.cancelOrders(request1);
         System.out.println(JSON.toJSONString(result));
+    }
+
+    @Test
+    public void test_batchCancelOrders() {
+        Options options = PoloOptions.builder()
+//                .apiKey(Constants.API_KEY_NG_STG_2)
+//                .secretKey(Constants.SECRET_KEY_STG_2)
+//                .passphrase(Constants.PASS_PHRASE)
+//                .restHost(Constants.REST_HOST_NG_STG)
+                .apiKey(Constants.API_KEY_NG_TEST_7)
+                .secretKey(Constants.SECRET_KEY_TEST_7)
+                .passphrase(Constants.PASS_PHRASE_TEST)
+                .restHost(Constants.REST_HOST_NG_TEST)
+                .build();
+
+        BatchCancelOrdersRequest request = BatchCancelOrdersRequest.builder()
+                .orderIds(Lists.newArrayList("265775050115117056", "265774952266190848"))
+                .build();
+
+        TradeClient client = new TradeClientImpl(options);
+        BatchCancelOrdersResponse response = client.batchCancelOrders(request);
+        System.out.println(JSON.toJSONString(response));
     }
 
     @Test
@@ -163,10 +200,10 @@ public class TradeClientTest {
     @Test
     public void test_getOrderList() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY_NG_TEST_7)
-                .secretKey(Constants.SECRET_KEY_TEST_7)
-                .passphrase(Constants.PASS_PHRASE_TEST)
-                .restHost(Constants.REST_HOST_NG_TEST)
+                .apiKey(Constants.API_KEY_STG_MIYA)
+                .secretKey(Constants.SECRET_KEY_STG_MIYA)
+                .passphrase(Constants.PASS_PHRASE_STG_MIYA)
+                .restHost(Constants.REST_HOST_OLD_STG)
                 .build();
         TradeClient client = new TradeClientImpl(options);
 //        PlaceOrderRequest request = PlaceOrderRequest.builder()
@@ -251,23 +288,23 @@ public class TradeClientTest {
     @Test
     public void test_getOrderDetail() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY)
-                .secretKey(Constants.SECRET_KEY)
-                .passphrase(Constants.PASS_PHRASE)
-                .restHost(Constants.REST_HOST)
+                .apiKey(Constants.API_KEY_NG_TEST_7)
+                .secretKey(Constants.SECRET_KEY_TEST_7)
+                .passphrase(Constants.PASS_PHRASE_TEST)
+                .restHost(Constants.REST_HOST_NG_TEST)
                 .build();
         TradeClient client = new TradeClientImpl(options);
-        PlaceOrderRequest request = PlaceOrderRequest.builder()
-                .symbol("BTCUSDTPERP")
-                .clientOid(IdGenerator.getNextId().toString())
-                .side("buy")
-                .type("limit")
-                .price("12")
-                .size(10)
-                .leverage("10")
-                .build();
-        PlaceOrderResponse create = client.placeOrder(request);
-        OrderDetailRequest request1 = OrderDetailRequest.builder().orderId(create.getOrderId()).build();
+//        PlaceOrderRequest request = PlaceOrderRequest.builder()
+//                .symbol("BTCUSDTPERP")
+//                .clientOid(IdGenerator.getNextId().toString())
+//                .side("buy")
+//                .type("limit")
+//                .price("12")
+//                .size(10)
+//                .leverage("10")
+//                .build();
+//        PlaceOrderResponse create = client.placeOrder(request);
+        OrderDetailRequest request1 = OrderDetailRequest.builder().orderId("260544505051410432").build();
         OrderDetail result = client.getOrderDetail(request1);
         System.out.println(JSON.toJSONString(result));
     }
@@ -275,13 +312,13 @@ public class TradeClientTest {
     @Test
     public void test_getFills() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY)
-                .secretKey(Constants.SECRET_KEY)
-                .passphrase(Constants.PASS_PHRASE)
-                .restHost(Constants.REST_HOST)
+                .apiKey(Constants.API_KEY_NG_TEST_7)
+                .secretKey(Constants.SECRET_KEY_TEST_7)
+                .passphrase(Constants.PASS_PHRASE_TEST)
+                .restHost(Constants.REST_HOST_NG_TEST)
                 .build();
         TradeClient client = new TradeClientImpl(options);
-        FillsRequest request = FillsRequest.builder().build();
+        FillsRequest request = FillsRequest.builder().orderId("260544505051410432").build();
         FillsResponse result = client.getFills(request);
         System.out.println(JSON.toJSONString(result));
     }

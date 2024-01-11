@@ -13,6 +13,8 @@ public interface AccountClient {
 
     AccountOverviewResponse getAccountOverview(AccountOverviewRequest request);
 
+    void getInternalAccountOverview(String userId);
+
     TransactionHistoryResponse getTransactionHistory(TransactionHistoryRequest request);
 
     TransferInResponse transferIn(TransferInRequest request);

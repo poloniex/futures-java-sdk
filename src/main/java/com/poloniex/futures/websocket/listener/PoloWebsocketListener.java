@@ -31,7 +31,7 @@ public class PoloWebsocketListener extends WebSocketListener {
     }
 
     public void onMessage(WebSocket webSocket, String text) {
-        log.debug("Got message: {}", text);
+        log.info("Got message: {}", text);
         JSONObject jsonObject = JSON.parseObject(text);
         String type = jsonObject.getString("type");
         if (!type.equals("message")) {
