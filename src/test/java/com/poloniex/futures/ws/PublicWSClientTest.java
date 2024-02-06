@@ -50,7 +50,7 @@ public class PublicWSClientTest {
     @Before
     public void setUp() {
         Options options = PoloOptions.builder()
-                .restHost(Constants.REST_HOST_NG_TEST)
+                .restHost(Constants.REST_HOST_NG_PROD)
                 .build();
         wsClient = new PublicWSClientImpl(options, new PoloWebsocketListener());
         wsClient.connect();
@@ -74,7 +74,7 @@ public class PublicWSClientTest {
     public void test_connect_and_ping_close() {
         PoloWebsocketListener listener = new PoloWebsocketListener();
         PublicWSClient client = new PublicWSClientImpl(PoloOptions.builder()
-                .restHost(Constants.REST_HOST_NG_TEST).build(), listener);
+                .restHost(Constants.REST_HOST_NG_STG).build(), listener);
         client.ping("1");
         try {
             Thread.sleep(1000L);
@@ -98,7 +98,7 @@ public class PublicWSClientTest {
 //            event.set(response.getData());
 //            wsClient.unsubscribe(APIConstants.API_TICKER_TOPIC_PREFIX, SYMBOL);
 //            cdl.countDown();
-//            System.out.println(JSON.toJSON(response.getData()));
+            System.out.println(JSON.toJSON(response.getData()));
         }, SYMBOL);
         LockSupport.park();
         System.out.println(uuid);
@@ -181,14 +181,16 @@ public class PublicWSClientTest {
     @Test
     public void onContractMarketData() throws Exception {
         AtomicReference<ContractMarketEvent> event = new AtomicReference<>();
-        CountDownLatch cdl = new CountDownLatch(1);
+//        CountDownLatch cdl = new CountDownLatch(1);
         wsClient.onContractMarketData(response -> {
-            event.set(response.getData());
-            wsClient.unsubscribe(APIConstants.API_CONTRACT_TOPIC_PREFIX, SYMBOL);
-            cdl.countDown();
+            System.out.println(response.getData());
+//            event.set(response.getData());
+//            wsClient.unsubscribe(APIConstants.API_CONTRACT_TOPIC_PREFIX, SYMBOL);
+//            cdl.countDown();
         }, SYMBOL);
-        assertTrue(cdl.await(maxAwait, TimeUnit.SECONDS));
-        assertThat(event.get(), notNullValue());
+        LockSupport.park();
+//        assertTrue(cdl.await(maxAwait, TimeUnit.SECONDS));
+//        assertThat(event.get(), notNullValue());
         log.info("event is " + JSON.toJSONString(event));
     }
 

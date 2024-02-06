@@ -34,4 +34,8 @@ public interface TradeClient {
     OrderStatisticsResponse openOrderStatistics(OrderStatisticsRequest request);
 
     void getMaxRiskLimit(MaxRiskLimitRequest request);
+
+    void queryMarginType(String symbol);
+
+    void changeMarginType(String symbol, Integer marginType);
 }

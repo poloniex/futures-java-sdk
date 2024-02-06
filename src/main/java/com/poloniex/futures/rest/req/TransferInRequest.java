@@ -13,7 +13,7 @@ import lombok.ToString;
 @Builder
 public class TransferInRequest {
 
-    private String bizNo;
+    private Long bizNo;
     private String userId;
     private String currency;
     private String amount;

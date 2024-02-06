@@ -34,9 +34,9 @@ public class TradeClientTest {
     @Test
     public void test_placeOrder() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY_STG_MIYA)
-                .secretKey(Constants.SECRET_KEY_STG_MIYA)
-                .passphrase(Constants.PASS_PHRASE_STG_MIYA)
+                .apiKey(Constants.API_KEY_STG_TEST4)
+                .secretKey(Constants.SECRET_KEY_STG_TEST4)
+                .passphrase(Constants.PASS_PHRASE_STG_TEST4)
                 .restHost(Constants.REST_HOST_OLD_STG)
                 .build();
         TradeClient client = new TradeClientImpl(options);
@@ -45,12 +45,36 @@ public class TradeClientTest {
                 .clientOid(IdGenerator.getNextId().toString())
                 .side("buy")
                 .type("limit")
-                .price("40000")
-                .size(1)
-                .leverage("100")
+                .price("73521.4")
+                .size(20)
+                .leverage("10")
                 .build();
         PlaceOrderResponse result = client.placeOrder(request);
         System.out.println(JSON.toJSONString(result));
+    }
+
+    @Test
+    public void test_queryMarginType() {
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY_STG_TEST4)
+                .secretKey(Constants.SECRET_KEY_STG_TEST4)
+                .passphrase(Constants.PASS_PHRASE_STG_TEST4)
+                .restHost(Constants.REST_HOST_OLD_STG)
+                .build();
+        TradeClient client = new TradeClientImpl(options);
+        client.queryMarginType("ETHUSDTPERP");
+    }
+
+    @Test
+    public void test_changeMarginType() {
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY_STG_TEST4)
+                .secretKey(Constants.SECRET_KEY_STG_TEST4)
+                .passphrase(Constants.PASS_PHRASE_STG_TEST4)
+                .restHost(Constants.REST_HOST_OLD_STG)
+                .build();
+        TradeClient client = new TradeClientImpl(options);
+        client.changeMarginType("ETHUSDTPERP", 1);
     }
 
     @Test
@@ -200,9 +224,9 @@ public class TradeClientTest {
     @Test
     public void test_getOrderList() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY_STG_MIYA)
-                .secretKey(Constants.SECRET_KEY_STG_MIYA)
-                .passphrase(Constants.PASS_PHRASE_STG_MIYA)
+                .apiKey(Constants.API_KEY_STG_TEST4)
+                .secretKey(Constants.SECRET_KEY_STG_TEST4)
+                .passphrase(Constants.PASS_PHRASE_STG_TEST4)
                 .restHost(Constants.REST_HOST_OLD_STG)
                 .build();
         TradeClient client = new TradeClientImpl(options);
@@ -229,7 +253,9 @@ public class TradeClientTest {
 //                .stopPrice("123")
 //                .build();
 //        client.placeOrder(request);
-        OrderListRequest request1 = OrderListRequest.builder().symbol("BTCUSDTPERP").status("active").build();
+        OrderListRequest request1 = OrderListRequest.builder().symbol("BTCUSDTPERP")
+//                .status("active")
+                .build();
         OrderListResponse result = client.getOrderList(request1);
         System.out.println(JSON.toJSONString(result));
     }

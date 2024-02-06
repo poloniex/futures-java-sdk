@@ -10,7 +10,6 @@ import com.poloniex.futures.rest.req.TransactionHistoryRequest;
 import com.poloniex.futures.rest.req.TransferInRequest;
 import com.poloniex.futures.rest.resp.AccountOverviewResponse;
 import com.poloniex.futures.rest.resp.TransactionHistoryResponse;
-import com.poloniex.futures.utils.ObjectId;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,10 +21,10 @@ public class AccountClientTest {
     @Test
     public void test_getAccountOverview() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY)
-                .secretKey(Constants.SECRET_KEY)
-                .passphrase(Constants.PASS_PHRASE)
-                .restHost(Constants.REST_HOST_OLD_STG_ALB)
+                .apiKey(Constants.API_KEY_NG_PROD_0)
+                .secretKey(Constants.SECRET_KEY_PROD_0)
+                .passphrase(Constants.PASS_PHRASE_PROD_0)
+                .restHost(Constants.REST_HOST_NG_PROD)
                 .build();
         AccountClient client = new AccountClientImpl(options);
         AccountOverviewResponse result = client.getAccountOverview(AccountOverviewRequest.builder().currency("USDT").build());
@@ -63,23 +62,74 @@ public class AccountClientTest {
 
     @Test
     @SneakyThrows
+    public void test_transferInDevSingle() {
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY_NG_DEV_INTERNAL)
+                .secretKey(Constants.SECRET_KEY_NG_DEV_INTERNAL)
+                .passphrase(Constants.PASS_PHRASE_NG_DEV_INTERNAL)
+                .restHost(Constants.REST_HOST_NG_DEV_INTERNAL)
+                .build();
+        AccountClient client = new AccountClientImpl(options);
+
+        TransferInRequest request = TransferInRequest.builder()
+                .bizNo(System.currentTimeMillis())
+                .userId("1001")
+                .amount("10000")
+                .currency("USDT")
+                .build();
+        System.out.println(client.transferIn(request));
+    }
+
+    @Test
+    @SneakyThrows
     public void test_transferIn() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY_NG_STG_INTERNAL)
-                .secretKey(Constants.SECRET_KEY_STG_INTERNAL)
-                .passphrase(Constants.PASS_PHRASE_STG_INTERNAL)
-                .restHost(Constants.REST_HOST_STG_INTERNAL)
+//                .apiKey(Constants.API_KEY_NG_STG_INTERNAL)
+//                .secretKey(Constants.SECRET_KEY_STG_INTERNAL)
+//                .passphrase(Constants.PASS_PHRASE_STG_INTERNAL)
+//                .restHost(Constants.REST_HOST_STG_INTERNAL)
+                .apiKey(Constants.API_KEY_NG_DEV_INTERNAL)
+                .secretKey(Constants.SECRET_KEY_NG_DEV_INTERNAL)
+                .passphrase(Constants.PASS_PHRASE_NG_DEV_INTERNAL)
+                .restHost(Constants.REST_HOST_NG_DEV_INTERNAL)
                 .build();
         AccountClient client = new AccountClientImpl(options);
         Files.lines(Paths.get(this.getClass().getClassLoader().getResource("userId.txt").toURI()),
                         StandardCharsets.UTF_8)
                 .forEach(userId -> {
                     TransferInRequest request = TransferInRequest.builder()
-                            .bizNo(ObjectId.getString())
+//                            .bizNo(ObjectId.getString())
                             .userId(userId)
-                            .amount("10000")
+                            .amount("1000")
                             .currency("USDT").build();
                     System.out.println(client.transferIn(request));
                 });
+    }
+
+    @Test
+    @SneakyThrows
+    public void test_transferInSingle() {
+        Options options = PoloOptions.builder()
+//                .apiKey(Constants.API_KEY_NG_STG_INTERNAL)
+//                .secretKey(Constants.SECRET_KEY_STG_INTERNAL)
+//                .passphrase(Constants.PASS_PHRASE_STG_INTERNAL)
+//                .restHost(Constants.REST_HOST_STG_INTERNAL)
+                .apiKey(Constants.API_KEY_NG_PROD_0)
+                .secretKey(Constants.SECRET_KEY_PROD_0)
+                .passphrase(Constants.PASS_PHRASE_PROD_0)
+                .restHost(Constants.REST_HOST_NG_PROD)
+                .build();
+        AccountClient client = new AccountClientImpl(options);
+
+        TransferInRequest request = TransferInRequest.builder()
+                .bizNo(System.currentTimeMillis())
+                .userId("1850571")
+                .amount("10000")
+                .currency("USDT").build();
+        System.out.println(client.transferIn(request));
+    }
+
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
     }
 }

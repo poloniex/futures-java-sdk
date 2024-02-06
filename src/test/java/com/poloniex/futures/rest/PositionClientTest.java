@@ -35,10 +35,10 @@ public class PositionClientTest {
     @Test
     public void test_getPositionList() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY)
-                .secretKey(Constants.SECRET_KEY)
-                .passphrase(Constants.PASS_PHRASE)
-                .restHost(Constants.REST_HOST)
+                .apiKey(Constants.API_KEY_STG_TEST4)
+                .secretKey(Constants.SECRET_KEY_STG_TEST4)
+                .passphrase(Constants.PASS_PHRASE_STG_TEST4)
+                .restHost(Constants.REST_HOST_OLD_STG)
                 .build();
         PositionClient client = new PositionClientImpl(options);
         List<PositionDetailsResponse> result = client.getPositionList();

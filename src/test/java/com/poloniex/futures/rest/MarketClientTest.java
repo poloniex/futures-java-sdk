@@ -38,7 +38,7 @@ public class MarketClientTest {
     @Test
     public void test_getOpenContractList() {
         MarketClient client = new MarketClientImpl(
-                PoloOptions.builder().restHost(Constants.REST_HOST_NG_TEST).build());
+                PoloOptions.builder().restHost(Constants.REST_HOST_OLD_STG).build());
         List<ContractResponse> result = client.getOpenContractList();
         System.out.println(JSON.toJSON(result));
     }
@@ -53,7 +53,7 @@ public class MarketClientTest {
 
     @Test
     public void test_getRealTimeTicker() {
-        MarketClient client = new MarketClientImpl(PoloOptions.builder().restHost(Constants.REST_HOST_NG_TEST).build());
+        MarketClient client = new MarketClientImpl(PoloOptions.builder().restHost(Constants.REST_HOST_OLD_STG).build());
         MarketTickerRequest request = MarketTickerRequest.builder().symbol("BTCUSDTPERP").build();
         MarketTickerResponse result = client.getRealTimeTicker(request);
         System.out.println(JSON.toJSON(result));
@@ -61,7 +61,7 @@ public class MarketClientTest {
 
     @Test
     public void test_getTicker24hr() {
-        MarketClient client = new MarketClientImpl(PoloOptions.builder().restHost(Constants.REST_HOST_NG_TEST).build());
+        MarketClient client = new MarketClientImpl(PoloOptions.builder().restHost(Constants.REST_HOST_OLD_STG).build());
         MarketTicker24hrRequest request = MarketTicker24hrRequest.builder().symbol("BTCUSDTPERP").build();
         MarketTicker24hrResponse result = client.getTicker24hr(request);
         System.out.println(JSON.toJSON(result));
@@ -69,7 +69,7 @@ public class MarketClientTest {
 
     @Test
     public void test_getFullOrderBookL2() {
-        MarketClient client = new MarketClientImpl(PoloOptions.builder().restHost(Constants.REST_HOST_NG_TEST).build());
+        MarketClient client = new MarketClientImpl(PoloOptions.builder().restHost(Constants.REST_HOST).build());
         OrderBookRequest request = OrderBookRequest.builder().symbol("BTCUSDTPERP").build();
         OrderBookL2Response result = client.getFullOrderBookL2(request);
         System.out.println(JSON.toJSON(result));
@@ -94,7 +94,7 @@ public class MarketClientTest {
     @Test
     public void test_getTradeHistory() {
         MarketClient client = new MarketClientImpl(PoloOptions.builder()
-                .restHost(Constants.REST_HOST_NG_TEST).build());
+                .restHost(Constants.REST_HOST_OLD_STG).build());
         TradeHistoryRequest request = TradeHistoryRequest.builder().symbol("BTCUSDTPERP").build();
         List<TradeHistoryResponse> result = client.getTradeHistory(request);
         System.out.println(result.size());

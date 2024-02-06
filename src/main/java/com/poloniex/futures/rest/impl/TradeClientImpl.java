@@ -11,6 +11,7 @@ import com.poloniex.futures.model.trade.TradeDetail;
 import com.poloniex.futures.utils.InputChecker;
 import com.poloniex.futures.utils.JSONUtils;
 import com.poloniex.futures.utils.UrlParamsBuilder;
+import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +47,8 @@ public class TradeClientImpl implements TradeClient {
     public static final String REST_OPEN_ORDER_STATISTICS_PATH = "/api/v1/openOrderStatistics";
 
     public static final String REST_MAX_RISK_LIMIT = "/api/v1/maxRiskLimit";
+    public static final String QUERY_MARGIN_TYPE = "/api/v1/marginType/query";
+    public static final String CHANGE_MARGIN_TYPE = "/api/v1/marginType/change";
 
 
     @Override
@@ -247,6 +250,31 @@ public class TradeClientImpl implements TradeClient {
             builder.putToUrl("symbol", request.getSymbol());
         }
         JSONObject result = restConnection.executeGetWithSignature(REST_MAX_RISK_LIMIT,
+                builder);
+        System.out.println(result);
+    }
+
+    @Override
+    public void queryMarginType(String symbol) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        if (StringUtils.isNotBlank(symbol)) {
+            builder.putToUrl("symbol", symbol);
+        }
+        JSONObject result = restConnection.executeGetWithSignature(QUERY_MARGIN_TYPE,
+                builder);
+        System.out.println(result);
+    }
+
+    @Override
+    public void changeMarginType(String symbol, Integer marginType) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        if (StringUtils.isNotBlank(symbol)) {
+            builder.putToUrl("symbol", symbol);
+        }
+        if (Objects.nonNull(marginType)) {
+            builder.putToUrl("marginType", marginType);
+        }
+        JSONObject result = restConnection.executePostWithSignature(CHANGE_MARGIN_TYPE,
                 builder);
         System.out.println(result);
     }
