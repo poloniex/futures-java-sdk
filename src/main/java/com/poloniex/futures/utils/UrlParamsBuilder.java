@@ -152,13 +152,12 @@ public class UrlParamsBuilder {
 
   private String AppendUrl(Map<String, String> map, StringBuilder stringBuilder) {
     for (Map.Entry<String, String> entry : map.entrySet()) {
-      if (!("").equals(stringBuilder.toString())) {
-        stringBuilder.append("&");
-      }
       stringBuilder.append(entry.getKey());
       stringBuilder.append("=");
       stringBuilder.append(urlEncode(entry.getValue()));
+      stringBuilder.append("&");
     }
+    stringBuilder.setLength(stringBuilder.length() - 1);
     return stringBuilder.toString();
   }
 

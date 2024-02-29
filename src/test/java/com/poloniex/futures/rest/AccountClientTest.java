@@ -13,6 +13,7 @@ import com.poloniex.futures.rest.resp.TransactionHistoryResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.atomic.AtomicLong;
 import lombok.SneakyThrows;
 import org.junit.Test;
 
@@ -21,10 +22,14 @@ public class AccountClientTest {
     @Test
     public void test_getAccountOverview() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY_NG_PROD_0)
-                .secretKey(Constants.SECRET_KEY_PROD_0)
-                .passphrase(Constants.PASS_PHRASE_PROD_0)
-                .restHost(Constants.REST_HOST_NG_PROD)
+//                .apiKey(Constants.API_KEY_NG_PROD_0)
+//                .secretKey(Constants.SECRET_KEY_PROD_0)
+//                .passphrase(Constants.PASS_PHRASE_PROD_0)
+//                .restHost(Constants.REST_HOST_NG_PROD)
+                .apiKey(Constants.API_KEY_NG_TEST_7)
+                .secretKey(Constants.SECRET_KEY_TEST_7)
+                .passphrase(Constants.PASS_PHRASE_TEST)
+                .restHost(Constants.REST_HOST_NG_TEST)
                 .build();
         AccountClient client = new AccountClientImpl(options);
         AccountOverviewResponse result = client.getAccountOverview(AccountOverviewRequest.builder().currency("USDT").build());
@@ -88,19 +93,24 @@ public class AccountClientTest {
 //                .secretKey(Constants.SECRET_KEY_STG_INTERNAL)
 //                .passphrase(Constants.PASS_PHRASE_STG_INTERNAL)
 //                .restHost(Constants.REST_HOST_STG_INTERNAL)
-                .apiKey(Constants.API_KEY_NG_DEV_INTERNAL)
-                .secretKey(Constants.SECRET_KEY_NG_DEV_INTERNAL)
-                .passphrase(Constants.PASS_PHRASE_NG_DEV_INTERNAL)
-                .restHost(Constants.REST_HOST_NG_DEV_INTERNAL)
+//                .apiKey(Constants.API_KEY_NG_DEV_INTERNAL)
+//                .secretKey(Constants.SECRET_KEY_NG_DEV_INTERNAL)
+//                .passphrase(Constants.PASS_PHRASE_NG_DEV_INTERNAL)
+//                .restHost(Constants.REST_HOST_NG_DEV_INTERNAL)
+                .apiKey(Constants.API_KEY_NG_PROD_0)
+                .secretKey(Constants.SECRET_KEY_PROD_0)
+                .passphrase(Constants.PASS_PHRASE_PROD_0)
+                .restHost(Constants.REST_HOST_NG_PROD)
                 .build();
         AccountClient client = new AccountClientImpl(options);
+        AtomicLong bizNo = new AtomicLong(System.currentTimeMillis());
         Files.lines(Paths.get(this.getClass().getClassLoader().getResource("userId.txt").toURI()),
                         StandardCharsets.UTF_8)
                 .forEach(userId -> {
                     TransferInRequest request = TransferInRequest.builder()
-//                            .bizNo(ObjectId.getString())
+                            .bizNo(bizNo.incrementAndGet())
                             .userId(userId)
-                            .amount("1000")
+                            .amount("10000")
                             .currency("USDT").build();
                     System.out.println(client.transferIn(request));
                 });
@@ -123,7 +133,7 @@ public class AccountClientTest {
 
         TransferInRequest request = TransferInRequest.builder()
                 .bizNo(System.currentTimeMillis())
-                .userId("1850571")
+                .userId("1386225")
                 .amount("10000")
                 .currency("USDT").build();
         System.out.println(client.transferIn(request));

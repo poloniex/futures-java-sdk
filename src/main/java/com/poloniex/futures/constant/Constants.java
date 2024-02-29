@@ -58,6 +58,9 @@ public class Constants {
     public static final String REST_HOST_NG_PROD = "https://prod-ng-api-gateway.poloniex.com";
 
 
+    public static final String SPOT_API_KEY_NG_TEST_7 = "DS66R62M-WSZ1ERA9-EU4E1JM9-FO4J4S6X";
+    public static final String SPOT_SECRET_KEY_NG_TEST_7 = "3f3fde6cb3cb5ebebeab83a27c0738c750d954a45246a6313a35eb63fe5f3981ee09b62342b43aad6baf4600e896a5f90ed1c801bb92a437ee0085288509ee30";
+
 //    jack.zheng+test1@poloniex.com  21089
 //    jack.zheng+test2@poloniex.com  21094
 //    jack.zheng+test3@poloniex.com  21188

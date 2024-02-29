@@ -34,19 +34,25 @@ public class TradeClientTest {
     @Test
     public void test_placeOrder() {
         Options options = PoloOptions.builder()
-                .apiKey(Constants.API_KEY_STG_TEST4)
-                .secretKey(Constants.SECRET_KEY_STG_TEST4)
-                .passphrase(Constants.PASS_PHRASE_STG_TEST4)
-                .restHost(Constants.REST_HOST_OLD_STG)
+//                .apiKey(Constants.API_KEY_STG_TEST4)
+//                .secretKey(Constants.SECRET_KEY_STG_TEST4)
+//                .passphrase(Constants.PASS_PHRASE_STG_TEST4)
+//                .restHost(Constants.REST_HOST_OLD_STG)
+                .apiKey(Constants.API_KEY_NG_TEST_7)
+                .secretKey(Constants.SECRET_KEY_TEST_7)
+                .passphrase(Constants.PASS_PHRASE_TEST)
+                .restHost(Constants.REST_HOST_NG_TEST)
                 .build();
         TradeClient client = new TradeClientImpl(options);
         PlaceOrderRequest request = PlaceOrderRequest.builder()
-                .symbol("BTCUSDTPERP")
+//                .symbol("BTCUSDTPERP")
+                .symbol("COMBOUSDTPERP")
                 .clientOid(IdGenerator.getNextId().toString())
                 .side("buy")
                 .type("limit")
-                .price("73521.4")
-                .size(20)
+//                .price("73521.4")
+                .price("4.8102")
+                .size(1)
                 .leverage("10")
                 .build();
         PlaceOrderResponse result = client.placeOrder(request);

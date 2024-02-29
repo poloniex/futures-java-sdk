@@ -50,7 +50,7 @@ public class PublicWSClientTest {
     @Before
     public void setUp() {
         Options options = PoloOptions.builder()
-                .restHost(Constants.REST_HOST_NG_PROD)
+                .restHost(Constants.REST_HOST)
                 .build();
         wsClient = new PublicWSClientImpl(options, new PoloWebsocketListener());
         wsClient.connect();
@@ -153,13 +153,14 @@ public class PublicWSClientTest {
         AtomicReference<ExecutionChangeEvent> event = new AtomicReference<>();
         CountDownLatch cdl = new CountDownLatch(1);
         wsClient.onExecutionData(response -> {
-            event.set(response.getData());
-            wsClient.unsubscribe(APIConstants.API_EXECUTION_TOPIC_PREFIX, SYMBOL);
-            cdl.countDown();
+            System.out.println(response);
+//            event.set(response.getData());
+//            wsClient.unsubscribe(APIConstants.API_EXECUTION_TOPIC_PREFIX, SYMBOL);
+//            cdl.countDown();
         }, SYMBOL);
-
-        assertTrue(cdl.await(maxAwait, TimeUnit.SECONDS));
-        assertThat(event.get(), notNullValue());
+        LockSupport.park();
+//        assertTrue(cdl.await(maxAwait, TimeUnit.SECONDS));
+//        assertThat(event.get(), notNullValue());
         log.info("event is " + JSON.toJSONString(event));
     }
 

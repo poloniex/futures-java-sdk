@@ -25,7 +25,7 @@ public class ConnectionFactory {
 
     public static void init(String apiKey, String secret, String passPhrase) {
         ConnectionPool connectionPool = new ConnectionPool(20, 300, TimeUnit.SECONDS);
-        if (Objects.nonNull(apiKey) && Objects.nonNull(secret) && Objects.nonNull(passPhrase)) {
+        if (Objects.nonNull(apiKey) && Objects.nonNull(secret)) {
             Interceptor interceptor = new AuthenticationInterceptor(apiKey, secret, passPhrase);
             client = new OkHttpClient.Builder()
                     .followSslRedirects(false)
@@ -87,7 +87,7 @@ public class ConnectionFactory {
         Response response = null;
         String str = null;
         try {
-            log.info("[Request URL]{}", request.url());
+            log.info("[Request URL]{}", request);
             Request temp = request.newBuilder().addHeader(APIConstants.API_HEADER_NEED_AUTH, "true").build();
             response = client.newCall(temp).execute();
             log.info("response={}", response);

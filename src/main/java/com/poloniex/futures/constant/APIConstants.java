@@ -11,7 +11,13 @@ public class APIConstants {
 
     public static final String API_HEADER_NEED_AUTH = "PF-API-NEED-AUTH";
 
+    // for polo
+    public static final String POLO_API_HEADER_TIMESTAMP = "signTimestamp";
+    public static final String POLO_API_HEADER_KEY = "key";
+    public static final String POLO_API_HEADER_SIGNATURE = "signature";
+    public static final String SIGNATURE_METHOD_VALUE = "HmacSHA256";
 
+    public static final String REQUEST_BODY = "requestBody";
 
     //for ws
     public static final String API_TICKER_TOPIC_PREFIX = "/contractMarket/ticker:";

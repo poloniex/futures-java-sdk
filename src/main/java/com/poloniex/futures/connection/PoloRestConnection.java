@@ -5,8 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.poloniex.futures.exception.SDKException;
 import com.poloniex.futures.utils.UrlParamsBuilder;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
+@Slf4j
 public class PoloRestConnection {
 
     public final static String HEADER_CONTENT_TYPE = "Content-Type";
@@ -59,10 +62,11 @@ public class PoloRestConnection {
     public JSONObject executePostWithSignature(String path, UrlParamsBuilder paramsBuilder) {
         Options options = this.getOptions();
         String requestUrl = options.getRestHost() + path;
+        RequestBody body = paramsBuilder.buildPostBody();
         Request executeRequest = new Request.Builder()
                 .url(requestUrl)
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_JSON)
-                .post(paramsBuilder.buildPostBody())
+                .post(body)
                 .build();
         String resp = ConnectionFactory.executeWithSignature(executeRequest);
         return checkAndGetResponse(resp);
