@@ -18,6 +18,7 @@ public interface TradeClient {
 
     void changeMarginType(ChangeMarginTypeRequest request);
 
+    void changeLeverage(ChangeLeverageRequest request);
 
     PlaceOrderResponse placeOrder(PlaceOrderRequest request);
 

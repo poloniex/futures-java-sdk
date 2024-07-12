@@ -57,6 +57,8 @@ public class TradeClientImpl implements TradeClient {
 
     public static final String REST_CHANGE_MARGINTYPE_PATH = "/api/v1/marginType/change";
 
+    public static final String REST_CHANGE_LEVERAGE_PATH = "/api/v2/position/leverage";
+
     public static final String REST_QUERY_USER_FEE_RATE_PATH = "/api/v1/userFeeRate";
 
     public static final  String REST_QUERY_USER_MAX_ORDER_CONFIG_PATH = "/api/v1/maxActiveOrders";
@@ -89,6 +91,15 @@ public class TradeClientImpl implements TradeClient {
         builder.putToPost("symbol", request.getSymbol())
                 .putToPost("marginType", request.getMarginType());
         JSONObject result = restConnection.executePostWithSignature(REST_CHANGE_MARGINTYPE_PATH, builder);
+    }
+
+
+    @Override
+    public void changeLeverage(ChangeLeverageRequest request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        builder.putToPost("symbol", request.getSymbol())
+                .putToPost("lever", request.getLever());
+        JSONObject result = restConnection.executePostWithSignature(REST_CHANGE_LEVERAGE_PATH, builder);
     }
 
 

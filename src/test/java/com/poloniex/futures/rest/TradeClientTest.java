@@ -99,6 +99,23 @@ public class TradeClientTest {
         client.changeMarginType(request);
     }
 
+
+    @Test
+    public void test_changeLeverage(){
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY)
+                .secretKey(Constants.SECRET_KEY)
+                .passphrase(Constants.PASS_PHRASE)
+                .restHost(Constants.REST_HOST)
+                .build();
+        TradeClient client = new TradeClientImpl(options);
+        ChangeLeverageRequest request = ChangeLeverageRequest.builder()
+                .symbol(" ")
+                .lever(10)
+                .build();
+        client.changeLeverage(request);
+    }
+
     @Test
     public void test_placeOrder() {
         Options options = PoloOptions.builder()
@@ -175,6 +192,14 @@ public class TradeClientTest {
 //                .leverage("10")
 //                .build();
 //        client.placeOrder(request);
+        List<PlaceOrderRequest> list = new ArrayList<>();
+
+        list.add(new PlaceOrderRequest());
+        list.add(new PlaceOrderRequest());
+        list.add(new PlaceOrderRequest());
+        list.add(new PlaceOrderRequest());
+
+
         CancelOrdersRequest request1 = CancelOrdersRequest.builder().symbol("COMBOUSDTPERP").build();
         CancelOrdersResponse result = client.cancelOrders(request1);
         System.out.println(JSON.toJSONString(result));
