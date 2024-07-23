@@ -6,9 +6,10 @@ import com.poloniex.futures.connection.PoloRestConnection;
 import com.poloniex.futures.model.trade.OrderDetail;
 import com.poloniex.futures.model.trade.TradeDetail;
 import com.poloniex.futures.rest.TradeV3Client;
-import com.poloniex.futures.rest.req.BatchCancelOrdersRequest;
-import com.poloniex.futures.rest.req.CancelOrderRequest;
+import com.poloniex.futures.rest.req.BatchCancelOrdersV3Request;
+import com.poloniex.futures.rest.req.CancelOrderV3Request;
 import com.poloniex.futures.rest.req.CancelOrdersRequest;
+import com.poloniex.futures.rest.req.CancelOrdersV3Request;
 import com.poloniex.futures.rest.req.ClosePositionV3Request;
 import com.poloniex.futures.rest.req.FillsRequest;
 import com.poloniex.futures.rest.req.MaxRiskLimitRequest;
@@ -17,8 +18,8 @@ import com.poloniex.futures.rest.req.OrderListRequest;
 import com.poloniex.futures.rest.req.OrderStatisticsRequest;
 import com.poloniex.futures.rest.req.PlaceOrderV3Request;
 import com.poloniex.futures.rest.req.QueryOrderOpenV3Request;
+import com.poloniex.futures.rest.req.QueryPosLeverageV3Request;
 import com.poloniex.futures.rest.req.StopOrderListRequest;
-import com.poloniex.futures.rest.resp.BatchCancelOrdersResponse;
 import com.poloniex.futures.rest.resp.CancelOrdersResponse;
 import com.poloniex.futures.rest.resp.FillsResponse;
 import com.poloniex.futures.rest.resp.OrderListResponse;
@@ -51,10 +52,12 @@ public class TradeV3ClientImpl implements TradeV3Client {
     public static final String REST_QUERY_ORDER_OPEN_PATH = "/api/v3/trade/order/opens";
 
     public static final String REST_CLOSE_POSITION_PATH = "/api/v3/trade/position";
-    public static final String REST_CANCEL_ORDER_PATH = "/api/v1/orders/$orderId$";
-    public static final String REST_CANCEL_ORDERS_PATH = "/api/v1/orders";
+    public static final String REST_CANCEL_ORDER_PATH = "/api/v3/trade/order";
+    public static final String REST_CANCEL_ORDERS_PATH = "/api/v3/trade/orders";
 
-    public static final String REST_BATCH_CANCEL_ORDERS_PATH = "/api/v1/batchOrders";
+    public static final String REST_QUERY_LEVERAGE_PATH = "/api/v3/position/leverage";
+
+    public static final String REST_BATCH_CANCEL_ORDERS_PATH = "/api/v3/trade/batchOrders";
     public static final String REST_CANCEL_STOP_ORDERS_PATH = "/api/v1/stopOrders";
     public static final String REST_ORDER_LIST_PATH = "/api/v1/orders";
     public static final String REST_STOP_ORDER_LIST_PATH = "/api/v1/stopOrders";
@@ -151,32 +154,50 @@ public class TradeV3ClientImpl implements TradeV3Client {
     }
 
     @Override
-    public CancelOrdersResponse cancelOrder(CancelOrderRequest request) {
-        InputChecker.checker().shouldNotNull(request.getOrderId(), "orderId");
-        String url = REST_CANCEL_ORDER_PATH.replace("$orderId$", request.getOrderId());
-        JSONObject result = restConnection.executeDeleteWithSignature(url, UrlParamsBuilder.build());
-        return JSONUtils.toBean(result.getString("data"), CancelOrdersResponse.class);
-    }
-
-    @Override
-    public CancelOrdersResponse cancelOrders(CancelOrdersRequest request) {
-        InputChecker.checker().shouldNotNull(request.getSymbol(), "symbol");
-        JSONObject result = restConnection.executeDeleteWithSignature(REST_CANCEL_ORDERS_PATH,
-                UrlParamsBuilder.build().putToUrl("symbol", request.getSymbol()));
-        return JSONUtils.toBean(result.getString("data"), CancelOrdersResponse.class);
-    }
-
-    @Override
-    public BatchCancelOrdersResponse batchCancelOrders(BatchCancelOrdersRequest request) {
+    public void cancelOrder(CancelOrderV3Request request) {
         UrlParamsBuilder builder = UrlParamsBuilder.build();
-        if (request.getOrderIds() != null) {
-            builder.putToPost("orderIds", request.getOrderIds());
+        builder.putToPost("symbol", request.getSymbol());
+        if (request.getOrderId() != null) {
+            builder.putToPost("ordId", request.getOrderId());
         }
-        if (request.getClientOids() != null) {
-            builder.putToPost("clientOids", request.getClientOids());
+        if (request.getOrderId() != null) {
+            builder.putToPost("clOrdId", request.getClOrdId());
+        }
+        JSONObject result = restConnection.executeDeleteWithSignature(REST_CANCEL_ORDER_PATH, builder);
+//        return JSONUtils.toBean(result.getString("data"), CancelOrdersResponse.class);
+        }
+
+    @Override
+    public void cancelOrders(CancelOrdersV3Request request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        builder.putToUrl("symbol", request.getSymbol());
+        if (request.getSide() != null) {
+            builder.putToUrl("side", request.getSide());
+        }
+        JSONObject result = restConnection.executeDeleteWithSignature(REST_CANCEL_ORDERS_PATH,
+                builder);
+//        return JSONUtils.toBean(result.getString("data"), CancelOrdersResponse.class);
+    }
+
+    @Override
+    public void batchCancelOrders(BatchCancelOrdersV3Request request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        builder.putToUrl("symbol", request.getSymbol());
+        if (request.getOrdIds() != null) {
+            builder.putToPost("ordIds", request.getOrdIds());
+        }
+        if (request.getClOrdIds() != null) {
+            builder.putToPost("clOrdIds", request.getClOrdIds());
         }
         JSONObject result = restConnection.executeDeleteWithSignature(REST_BATCH_CANCEL_ORDERS_PATH, builder);
-        return JSONUtils.toBean(result.getString("data"), BatchCancelOrdersResponse.class);
+//        return JSONUtils.toBean(result.getString("data"), BatchCancelOrdersResponse.class);
+    }
+
+    @Override
+    public void queryPosLeverage(QueryPosLeverageV3Request request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        builder.putToUrl("symbol", request.getSymbol());
+        JSONObject result = restConnection.executeGetWithSignature(REST_QUERY_LEVERAGE_PATH, builder);
     }
 
     @Override

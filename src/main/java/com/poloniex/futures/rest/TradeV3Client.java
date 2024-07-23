@@ -2,9 +2,10 @@ package com.poloniex.futures.rest;
 
 import com.poloniex.futures.model.trade.OrderDetail;
 import com.poloniex.futures.model.trade.TradeDetail;
-import com.poloniex.futures.rest.req.BatchCancelOrdersRequest;
-import com.poloniex.futures.rest.req.CancelOrderRequest;
+import com.poloniex.futures.rest.req.BatchCancelOrdersV3Request;
+import com.poloniex.futures.rest.req.CancelOrderV3Request;
 import com.poloniex.futures.rest.req.CancelOrdersRequest;
+import com.poloniex.futures.rest.req.CancelOrdersV3Request;
 import com.poloniex.futures.rest.req.ClosePositionV3Request;
 import com.poloniex.futures.rest.req.FillsRequest;
 import com.poloniex.futures.rest.req.MaxRiskLimitRequest;
@@ -13,8 +14,8 @@ import com.poloniex.futures.rest.req.OrderListRequest;
 import com.poloniex.futures.rest.req.OrderStatisticsRequest;
 import com.poloniex.futures.rest.req.PlaceOrderV3Request;
 import com.poloniex.futures.rest.req.QueryOrderOpenV3Request;
+import com.poloniex.futures.rest.req.QueryPosLeverageV3Request;
 import com.poloniex.futures.rest.req.StopOrderListRequest;
-import com.poloniex.futures.rest.resp.BatchCancelOrdersResponse;
 import com.poloniex.futures.rest.resp.CancelOrdersResponse;
 import com.poloniex.futures.rest.resp.FillsResponse;
 import com.poloniex.futures.rest.resp.OrderListResponse;
@@ -30,11 +31,13 @@ public interface TradeV3Client {
 
     void closePosition(ClosePositionV3Request request);
 
-    CancelOrdersResponse cancelOrder(CancelOrderRequest request);
+    void cancelOrder(CancelOrderV3Request request);
 
-    CancelOrdersResponse cancelOrders(CancelOrdersRequest request);
+    void cancelOrders(CancelOrdersV3Request request);
 
-    BatchCancelOrdersResponse batchCancelOrders(BatchCancelOrdersRequest request);
+    void batchCancelOrders(BatchCancelOrdersV3Request request);
+
+    void queryPosLeverage(QueryPosLeverageV3Request request);
 
     CancelOrdersResponse cancelStopOrders(CancelOrdersRequest request);
 

@@ -89,7 +89,7 @@ public class PoloRestConnection {
         try {
             if (json.containsKey("code")) {
                 int code = json.getInteger("code");
-                if (code != 200000) {
+                if (!(code == 200000 || code == 200)) {
                     String message = json.getString("message");
                     throw new SDKException(SDKException.EXEC_ERROR, "[Executing]" + message);
                 }
