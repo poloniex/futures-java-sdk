@@ -40,6 +40,8 @@ public interface TradeClient {
 
     FillsResponse getFills(FillsRequest request);
 
+    void getTradeV3(FillsRequest request);
+
     List<TradeDetail> getRecentFills();
 
     OrderStatisticsResponse openOrderStatistics(OrderStatisticsRequest request);

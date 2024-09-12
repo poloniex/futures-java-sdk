@@ -411,6 +411,20 @@ public class TradeClientTest {
     }
 
     @Test
+    public void test_getTradeV3() {
+        Options options = PoloOptions.builder()
+                .apiKey(Constants.API_KEY)
+                .secretKey(Constants.SECRET_KEY)
+                .passphrase(Constants.PASS_PHRASE)
+                .restHost(Constants.REST_HOST)
+                .build();
+        TradeClient client = new TradeClientImpl(options);
+        FillsRequest request = FillsRequest.builder().build();
+        client.getTradeV3(request);
+        //System.out.println(JSON.toJSONString(result));
+    }
+
+    @Test
     public void test_getRecentFills() {
         Options options = PoloOptions.builder()
                 .apiKey(Constants.API_KEY)

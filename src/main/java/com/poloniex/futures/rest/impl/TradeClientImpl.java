@@ -34,6 +34,8 @@ public class TradeClientImpl implements TradeClient {
     public static final String REST_CANCEL_ORDER_PATH = "/api/v1/orders/$orderId$";
     public static final String REST_CANCEL_ORDERS_PATH = "/api/v1/orders";
 
+    public static final String REST_V3_TRADE_PATH = "/v3/trade/order/trades";
+
     public static final String REST_BATCH_CANCEL_ORDERS_PATH = "/api/v1/batchOrders";
     public static final String REST_CANCEL_STOP_ORDERS_PATH = "/api/v1/stopOrders";
     public static final String REST_ORDER_LIST_PATH = "/api/v1/orders";
@@ -278,6 +280,14 @@ public class TradeClientImpl implements TradeClient {
         }
         JSONObject result = restConnection.executeGetWithSignature(REST_FILLS_PATH, builder);
         return JSONUtils.toBean(result.getString("data"), FillsResponse.class);
+    }
+
+    @Override
+    public void getTradeV3(FillsRequest request) {
+        UrlParamsBuilder builder = UrlParamsBuilder.build();
+        JSONObject result = restConnection.executeGetWithSignature(REST_V3_TRADE_PATH, builder);
+        System.out.println("tradeV3 = "+result);
+
     }
 
     @Override
